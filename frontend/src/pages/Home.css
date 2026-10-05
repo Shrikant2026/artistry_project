@@ -1,0 +1,463 @@
+.home-page {
+    overflow: hidden;
+}
+
+/* HERO */
+
+.home-hero {
+    min-height: 900px;
+
+    padding-top: 170px;
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 70% 40%,
+            rgba(218,80,116,.18),
+            transparent 35%
+        );
+}
+
+.hero-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    align-items: center;
+
+    gap: 50px;
+}
+
+.hero-content {
+    position: relative;
+
+    z-index: 2;
+}
+
+.hero-content h1 {
+    margin: 20px 0;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(65px, 8vw, 110px);
+
+    line-height: .82;
+
+    color: var(--rose-950);
+
+    font-weight: 600;
+}
+
+.hero-content h1 em {
+    display: block;
+
+    color: var(--rose-600);
+
+    font-weight: 400;
+
+    font-style: italic;
+}
+
+.hero-content h2 {
+    margin: 25px 0 15px;
+
+    color: var(--rose-800);
+
+    font-size: 18px;
+
+    font-weight: 500;
+}
+
+.hero-content p {
+    max-width: 580px;
+
+    color: var(--muted);
+
+    line-height: 1.8;
+
+    font-size: 16px;
+}
+
+.hero-actions {
+    display: flex;
+
+    gap: 14px;
+
+    margin: 30px 0;
+}
+
+.hero-content .calendar-cta {
+    margin-top: 18px;
+}
+
+/* VISUAL */
+
+.hero-visual {
+    display: flex;
+
+    justify-content: center;
+}
+
+.portrait-glass {
+    width: min(470px, 100%);
+
+    height: 610px;
+
+    position: relative;
+
+    padding: 14px;
+
+    border-radius: 42px;
+
+    background:
+        rgba(255,255,255,.28);
+
+    border:
+        1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+        0 35px 80px rgba(91,24,47,.18);
+
+    backdrop-filter: blur(20px);
+
+    transform: rotate(2deg);
+}
+
+.portrait-placeholder {
+    width: 100%;
+
+    height: 100%;
+
+    border-radius: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 40% 30%,
+            #f8c8d1,
+            #d76c88 45%,
+            #7c2945
+        );
+
+    overflow: hidden;
+
+    position: relative;
+}
+
+.portrait-placeholder::before {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 400px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #f7c7c7,
+            #c45b75
+        );
+
+    filter: blur(2px);
+}
+
+.portrait-placeholder span {
+    position: relative;
+
+    color: rgba(255,255,255,.75);
+
+    font-family: "Italianno", cursive;
+
+    font-size: 170px;
+}
+
+.hero-stat-card {
+    position: absolute;
+
+    right: -35px;
+    bottom: 50px;
+
+    width: 170px;
+
+    padding: 20px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,.5);
+
+    border:
+        1px solid rgba(255,255,255,.75);
+
+    backdrop-filter: blur(25px);
+
+    box-shadow:
+        0 20px 45px rgba(91,24,47,.16);
+
+    transform: rotate(-2deg);
+}
+
+.hero-stat-card strong {
+    display: block;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 38px;
+
+    color: var(--rose-800);
+}
+
+.hero-stat-card span {
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+/* SERVICES */
+
+.home-section-heading {
+    margin-bottom: 45px;
+}
+
+.home-section-heading h2 {
+    margin: 15px 0;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(45px, 6vw, 72px);
+
+    line-height: .95;
+
+    font-weight: 500;
+
+    color: var(--rose-950);
+}
+
+.home-section-heading em {
+    color: var(--rose-600);
+}
+
+.service-glass-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+.service-glass-card {
+    padding: 32px 24px;
+
+    min-height: 230px;
+
+    border-radius: 28px;
+
+    background:
+        rgba(255,255,255,.35);
+
+    border:
+        1px solid rgba(255,255,255,.7);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 20px 50px rgba(91,24,47,.08);
+
+    transition: .3s;
+}
+
+.service-glass-card:hover {
+    transform: translateY(-8px);
+
+    background:
+        rgba(255,255,255,.55);
+}
+
+.service-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+
+    margin-bottom: 25px;
+
+    border-radius: 50%;
+
+    color: var(--rose-700);
+
+    border:
+        1px solid rgba(197,76,109,.25);
+
+    background:
+        rgba(255,255,255,.45);
+
+    font-size: 20px;
+}
+
+.service-glass-card h3 {
+    margin: 0 0 10px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 25px;
+
+    color: var(--rose-950);
+}
+
+.service-glass-card p {
+    color: var(--muted);
+
+    line-height: 1.6;
+
+    font-size: 13px;
+}
+
+/* BOOKING */
+
+.home-booking-section {
+    padding-bottom: 100px;
+}
+
+.booking-glass {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 40px;
+
+    padding: 60px;
+
+    border-radius: 38px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.55),
+            rgba(255,214,224,.4)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.75);
+
+    box-shadow:
+        0 30px 70px rgba(91,24,47,.12);
+
+    backdrop-filter: blur(25px);
+}
+
+.booking-glass h2 {
+    margin: 15px 0 0;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(45px, 6vw, 75px);
+
+    line-height: .9;
+
+    color: var(--rose-950);
+}
+
+.booking-glass em {
+    color: var(--rose-600);
+}
+
+/* ORBS */
+
+.hero-orb {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    pointer-events: none;
+}
+
+.orb-one {
+    width: 300px;
+    height: 300px;
+
+    top: 150px;
+    right: -100px;
+
+    background:
+        rgba(220,113,141,.16);
+}
+
+.orb-two {
+    width: 180px;
+    height: 180px;
+
+    left: -60px;
+    bottom: 100px;
+
+    background:
+        rgba(249,221,213,.7);
+}
+
+@media(max-width:900px) {
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-hero {
+        padding-top: 140px;
+    }
+
+    .hero-visual {
+        margin-top: 30px;
+    }
+
+    .service-glass-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .booking-glass {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+}
+
+@media(max-width:550px) {
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions .button {
+        width: 100%;
+    }
+
+    .portrait-glass {
+        height: 500px;
+    }
+
+    .service-glass-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-glass {
+        padding: 35px 25px;
+    }
+}

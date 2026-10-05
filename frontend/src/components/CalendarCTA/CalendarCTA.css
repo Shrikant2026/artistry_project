@@ -1,0 +1,131 @@
+.calendar-cta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    width: max-content;
+
+    max-width: 100%;
+
+    padding: 13px 20px 13px 13px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255,255,255,.4);
+
+    border:
+        1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+        0 18px 45px rgba(91,24,47,.13);
+
+    backdrop-filter: blur(20px);
+
+    animation:
+        float 4s ease-in-out infinite;
+
+    transition: .3s;
+}
+
+.calendar-cta:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 25px 60px rgba(91,24,47,.2);
+}
+
+.calendar-icon {
+    width: 70px;
+    min-width: 70px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+
+    background: white;
+
+    text-align: center;
+
+    box-shadow:
+        0 8px 20px rgba(91,24,47,.1);
+}
+
+.calendar-top {
+    padding: 5px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--rose-800),
+            var(--rose-600)
+        );
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+    font-weight: 700;
+}
+
+.calendar-day {
+    margin-top: 5px;
+
+    color: var(--rose-950);
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 32px;
+
+    font-weight: 700;
+}
+
+.calendar-month {
+    padding-bottom: 7px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+.calendar-copy {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.calendar-copy span {
+    color: var(--rose-700);
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    font-weight: 700;
+}
+
+.calendar-copy strong {
+    color: var(--rose-950);
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 22px;
+}
+
+.calendar-copy small {
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+@media(max-width:500px) {
+    .calendar-cta {
+        width: 100%;
+    }
+}

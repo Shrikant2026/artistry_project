@@ -1,0 +1,195 @@
+.glass-navbar {
+    position: fixed;
+
+    top: 18px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: min(
+        1100px,
+        calc(100% - 30px)
+    );
+
+    z-index: 1000;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,.38);
+
+    border:
+        1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+        0 20px 60px rgba(91,24,47,.13);
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
+
+.navbar-inner {
+    min-height: 76px;
+
+    padding: 8px 16px 8px 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.brand span {
+    color: var(--rose-800);
+
+    font-family: "Italianno", cursive;
+
+    font-size: 40px;
+
+    line-height: .8;
+}
+
+.brand small {
+    margin-top: 7px;
+
+    color: var(--rose-900);
+
+    font-size: 7px;
+
+    letter-spacing: 3px;
+}
+
+.nav-menu {
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+}
+
+.nav-menu > a:not(.nav-book) {
+    font-size: 13px;
+
+    color: var(--text);
+
+    position: relative;
+}
+
+.nav-menu > a:not(.nav-book)::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -9px;
+
+    width: 0;
+
+    height: 2px;
+
+    background: var(--rose-600);
+
+    transition: width .25s;
+}
+
+.nav-menu > a:hover::after,
+.nav-menu > a.active::after {
+    width: 100%;
+}
+
+.nav-book {
+    padding: 13px 22px;
+
+    border-radius: 999px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--rose-800),
+            var(--rose-500)
+        );
+
+    box-shadow:
+        0 10px 25px rgba(132,38,66,.25);
+}
+
+.mobile-menu-button {
+    display: none;
+
+    border: 0;
+
+    background: rgba(255,255,255,.45);
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    color: var(--rose-900);
+
+    font-size: 20px;
+}
+
+@media(max-width:800px) {
+
+    .mobile-menu-button {
+        display: block;
+    }
+
+    .nav-menu {
+        position: absolute;
+
+        top: 82px;
+        left: 0;
+
+        width: 100%;
+
+        padding: 20px;
+
+        border-radius: 25px;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        background:
+            rgba(255,255,255,.75);
+
+        backdrop-filter: blur(30px);
+
+        opacity: 0;
+
+        pointer-events: none;
+
+        transform: translateY(-10px);
+
+        transition: .25s;
+    }
+
+    .nav-menu.nav-open {
+        opacity: 1;
+
+        pointer-events: auto;
+
+        transform: translateY(0);
+    }
+
+    .nav-menu > a {
+        padding: 12px;
+    }
+
+    .nav-book {
+        text-align: center;
+    }
+}

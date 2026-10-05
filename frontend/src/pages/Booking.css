@@ -1,0 +1,164 @@
+.booking-heading {
+    margin-bottom: 55px;
+}
+
+.booking-layout {
+    display: grid;
+
+    grid-template-columns:
+        .75fr 1.25fr;
+
+    gap: 25px;
+}
+
+.booking-calendar {
+    padding: 35px;
+
+    height: max-content;
+}
+
+.calendar-large {
+    text-align: center;
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--rose-800),
+            var(--rose-500)
+        );
+
+    color: white;
+}
+
+.calendar-large span {
+    display: block;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+}
+
+.calendar-large strong {
+    display: block;
+
+    margin: 5px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 100px;
+
+    line-height: .9;
+}
+
+.calendar-large small {
+    font-size: 13px;
+}
+
+.booking-calendar p {
+    color: var(--muted);
+
+    line-height: 1.6;
+}
+
+.booking-calendar input,
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding: 14px 16px;
+
+    border-radius: 15px;
+
+    border:
+        1px solid rgba(132,38,66,.12);
+
+    background:
+        rgba(255,255,255,.55);
+
+    outline: none;
+
+    color: var(--text);
+}
+
+.booking-calendar input:focus,
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+    border-color: var(--rose-500);
+
+    box-shadow:
+        0 0 0 3px rgba(220,113,141,.12);
+}
+
+.booking-form {
+    padding: 40px;
+}
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+.booking-form label {
+    color: var(--rose-900);
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.booking-form .full {
+    grid-column: 1 / -1;
+}
+
+.booking-form button {
+    margin-top: 25px;
+}
+
+.booking-success {
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: rgba(197,76,109,.1);
+
+    color: var(--rose-800);
+
+    font-size: 13px;
+}
+
+@media(max-width:800px) {
+
+    .booking-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:550px) {
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-form .full {
+        grid-column: auto;
+    }
+
+    .booking-form {
+        padding: 25px;
+    }
+}

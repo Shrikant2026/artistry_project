@@ -1,0 +1,99 @@
+.glass-footer {
+    margin-top: 100px;
+
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6b1c35,
+            #a93455,
+            #541528
+        );
+
+    color: white;
+}
+
+.footer-glass {
+    width: min(1200px, 100%);
+
+    margin: auto;
+
+    padding: 50px;
+
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr 1fr 1fr;
+
+    gap: 50px;
+
+    border-radius: 35px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid rgba(255,255,255,.18);
+
+    backdrop-filter: blur(20px);
+}
+
+.footer-logo {
+    font-family: "Italianno", cursive;
+
+    font-size: 52px;
+}
+
+.footer-glass p {
+    max-width: 280px;
+
+    color: rgba(255,255,255,.7);
+
+    line-height: 1.7;
+}
+
+.footer-glass h4 {
+    margin-top: 0;
+
+    color: #ffdbe4;
+}
+
+.footer-glass a,
+.footer-glass span {
+    display: block;
+
+    margin: 12px 0;
+
+    color: rgba(255,255,255,.75);
+
+    font-size: 13px;
+}
+
+.footer-glass a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    padding-top: 30px;
+
+    text-align: center;
+
+    color: rgba(255,255,255,.6);
+
+    font-size: 11px;
+}
+
+@media(max-width:700px) {
+    .footer-glass {
+        grid-template-columns: 1fr 1fr;
+
+        padding: 30px;
+    }
+}
+
+@media(max-width:500px) {
+    .footer-glass {
+        grid-template-columns: 1fr;
+    }
+}
