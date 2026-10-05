@@ -3,8 +3,12 @@ const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const dotenv = require("dotenv");
-
+const availabilityRoutes = require("./routes/availabilityRoutes");
+const servicesRoutes = require("./routes/servicesRoutes");
 dotenv.config();
+
+const bookingRoutes =
+    require("./routes/bookingRoutes");
 
 const app = express();
 
@@ -80,6 +84,39 @@ app.get("/", (req, res) => {
         message: "RUPANJALI'S MAKEUP ARTISTRY API",
     });
 });
+
+/*
+|--------------------------------------------------------------------------
+| Availability Routes
+|--------------------------------------------------------------------------
+*/
+
+app.use(
+    "/api/availability",
+    availabilityRoutes
+);
+
+/*
+|--------------------------------------------------------------------------
+| Bookings
+|--------------------------------------------------------------------------
+*/
+
+app.use(
+    "/api/bookings",
+    bookingRoutes
+);
+
+/*
+|--------------------------------------------------------------------------
+| Services Routes
+|--------------------------------------------------------------------------
+*/
+
+app.use(
+    "/api/services",
+    servicesRoutes
+);
 
 /*
 |--------------------------------------------------------------------------

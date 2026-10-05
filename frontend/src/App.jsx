@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ApiTest from "./pages/ApiTest";
 
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
@@ -58,6 +59,11 @@ function App() {
                     <Route
                         path="/booking"
                         element={<Booking />}
+                    />
+
+                    <Route
+                        path="/api-test"
+                        element={<ApiTest />}
                     />
 
                 </Routes>
