@@ -120,6 +120,7 @@ function Booking() {
         name: "",
         phone: "",
         email: "",
+        service_id: "",
         event_type: "",
         location: "",
         message: ""
@@ -353,7 +354,6 @@ function Booking() {
         );
     };
 
-
     // ==========================================
     // SUBMIT BOOKING
     // ==========================================
@@ -377,39 +377,46 @@ function Booking() {
             setError("");
             setSuccess(null);
 
+            const selectedService =
+                services.find(
+                    service =>
+                        service.id === form.service_id
+                );
+
+            if (!selectedService) {
+                setError(
+                    "Please select a valid service."
+                );
+                return;
+            }
+
             const response =
                 await bookingApi.create({
-                    slot_id:
-                        selectedSlot.id,
+                    slot_id: selectedSlot.id,
 
-                    name:
-                        form.name,
+                    service_id: selectedService.id,
 
-                    phone:
-                        form.phone,
+                    name: form.name,
 
-                    email:
-                        form.email || null,
+                    phone: form.phone,
 
-                    event_type:
-                        form.event_type,
+                    email: form.email || null,
 
-                    event_date:
-                        selectedDate,
+                    event_type: selectedService.name,
+
+                    event_date: selectedDate,
 
                     start_time:
-                        selectedSlot.start_time,
+                        selectedSlot.start_time.slice(0, 5),
 
                     end_time:
-                        selectedSlot.end_time,
+                        selectedSlot.end_time.slice(0, 5),
 
-                    location:
-                        form.location,
+                    location: form.location,
 
-                    message:
-                        form.message || null
+                    message: form.message || null
                 });
-
+    
             if (!response.success) {
 
                 throw new Error(
@@ -428,6 +435,7 @@ function Booking() {
                 name: "",
                 phone: "",
                 email: "",
+                service_id: "",
                 event_type: "",
                 location: "",
                 message: ""
@@ -981,8 +989,8 @@ function Booking() {
                                     </span>
 
                                     <select
-                                        name="event_type"
-                                        value={form.event_type}
+                                        name="service_id"
+                                        value={form.service_id}
                                         onChange={handleChange}
                                         required
                                     >
@@ -993,7 +1001,7 @@ function Booking() {
                                         {services.map((service) => (
                                             <option
                                                 key={service.id}
-                                                value={service.name}
+                                                value={service.id}
                                             >
                                                 {service.name}
                                             </option>

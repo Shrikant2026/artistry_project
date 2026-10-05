@@ -6,6 +6,7 @@ const createBooking = async (req, res) => {
 
         const {
             slot_id,
+            service_id,
             customer_name,
             name,
             email,
@@ -27,6 +28,7 @@ const createBooking = async (req, res) => {
         // ==========================================
 
         if (
+            !service_id ||
             !finalName ||
             !phone ||
             !event_type ||
@@ -59,6 +61,18 @@ const createBooking = async (req, res) => {
             });
         }
 
+
+        if (
+            typeof service_id !== "string" ||
+            !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+                service_id
+            )
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid service selected."
+            });
+        }
 
         // ==========================================
         // PHONE
@@ -161,6 +175,7 @@ const createBooking = async (req, res) => {
         const booking =
             await bookingService.createBooking({
                 slot_id,
+                service_id,
                 customer_name: finalName.trim(),
                 email: email?.trim() || null,
                 phone: phone.trim(),

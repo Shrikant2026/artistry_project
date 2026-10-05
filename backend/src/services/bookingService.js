@@ -7,6 +7,7 @@ const ACTIVE_BOOKING_STATUSES = [
 
 const createBooking = async ({
     slot_id,
+    service_id,
     customer_name,
     email,
     phone,
@@ -17,6 +18,30 @@ const createBooking = async ({
     location,
     message
 }) => {
+
+    const {
+        data: service,
+        error: serviceError
+    } = await supabase
+        .from("services")
+        .select("id, name, is_published")
+        .eq("id", service_id)
+        .eq("is_published", true)
+        .maybeSingle();
+
+    if (serviceError) {
+        throw serviceError;
+    }
+
+    if (!service) {
+        const error = new Error(
+            "The selected service is unavailable."
+        );
+
+        error.statusCode = 400;
+
+        throw error;
+    }
 
     // ==========================================
     // 1. RESOLVE SLOT
@@ -223,6 +248,7 @@ const createBooking = async ({
         .from("bookings")
         .insert({
             slot_id: slot.id,
+            service_id: service.id,
             customer_name,
             email: email || null,
             phone,
@@ -238,6 +264,7 @@ const createBooking = async ({
         .select(`
             id,
             slot_id,
+            service_id,
             customer_name,
             email,
             phone,
