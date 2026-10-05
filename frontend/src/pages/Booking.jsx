@@ -96,7 +96,7 @@ function Booking() {
         useState({});
 
     const [services, setServices] =
-    useState([]);
+        useState([]);
 
     const [selectedDate, setSelectedDate] =
         useState(null);
@@ -125,6 +125,31 @@ function Booking() {
         message: ""
     });
 
+    // ==========================================
+    // LOAD AVAILABILITY
+    // ==========================================
+
+    useEffect(() => {
+        const loadServices = async () => {
+            try {
+                const response =
+                    await servicesApi.get();
+
+                if (response.success) {
+                    setServices(
+                        response.services || []
+                    );
+                }
+            } catch (err) {
+                console.error(
+                    "Failed to load services:",
+                    err
+                );
+            }
+        };
+
+        loadServices();
+    }, []);
 
     // ==========================================
     // LOAD AVAILABILITY
@@ -957,41 +982,23 @@ function Booking() {
 
                                     <select
                                         name="event_type"
-                                        value={
-                                            form.event_type
-                                        }
-                                        onChange={
-                                            handleChange
-                                        }
+                                        value={form.event_type}
+                                        onChange={handleChange}
                                         required
                                     >
-
                                         <option value="">
                                             Select event
                                         </option>
 
-                                        <option>
-                                            Bridal Makeup
-                                        </option>
-
-                                        <option>
-                                            Engagement Makeup
-                                        </option>
-
-                                        <option>
-                                            Reception Makeup
-                                        </option>
-
-                                        <option>
-                                            Party Makeup
-                                        </option>
-
-                                        <option>
-                                            Photoshoot & Editorial
-                                        </option>
-
+                                        {services.map((service) => (
+                                            <option
+                                                key={service.id}
+                                                value={service.name}
+                                            >
+                                                {service.name}
+                                            </option>
+                                        ))}
                                     </select>
-
                                 </label>
 
 
