@@ -1,8 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ApiTest from "./pages/ApiTest";
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
 
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
+import ApiTest from "./pages/ApiTest";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -11,15 +13,22 @@ import Services from "./pages/Services";
 import Stories from "./pages/Stories";
 import Story from "./pages/Story";
 import Booking from "./pages/Booking";
+import AdminLogin from "./pages/AdminLogin";
+
+import PublicLayout from "./components/PublicLayout";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
     return (
         <BrowserRouter>
 
-            <Navbar />
+            <Routes>
 
-            <main>
-                <Routes>
+                {/* ================================
+                    PUBLIC WEBSITE
+                ================================= */}
+
+                <Route element={<PublicLayout />}>
 
                     <Route
                         path="/"
@@ -66,10 +75,24 @@ function App() {
                         element={<ApiTest />}
                     />
 
-                </Routes>
-            </main>
+                </Route>
 
-            <Footer />
+
+                {/* ================================
+                    ADMIN
+                ================================= */}
+
+                <Route
+                    path="/admin/login"
+                    element={<AdminLogin />}
+                />
+
+                <Route
+                    path="/admin"
+                    element={<AdminDashboard />}
+                />
+
+            </Routes>
 
         </BrowserRouter>
     );

@@ -7,8 +7,9 @@ const availabilityRoutes = require("./routes/availabilityRoutes");
 const servicesRoutes = require("./routes/servicesRoutes");
 dotenv.config();
 
-const bookingRoutes =
-    require("./routes/bookingRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+
 
 const app = express();
 
@@ -116,6 +117,11 @@ app.use(
 app.use(
     "/api/services",
     servicesRoutes
+);
+
+app.use(
+    "/api/admin",
+    adminRoutes
 );
 
 /*
