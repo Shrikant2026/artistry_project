@@ -1,0 +1,252 @@
+.admin-availability-page {
+    min-height: 100vh;
+    padding: 60px 6%;
+    box-sizing: border-box;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(214, 143, 162, 0.14),
+            transparent 40%
+        ),
+        #f8f1ed;
+}
+
+.admin-availability-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.admin-availability-eyebrow {
+    margin: 0 0 12px;
+    color: #9d4562;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.admin-availability-header h1 {
+    margin: 0 0 10px;
+    color: #302629;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 48px;
+    font-weight: 400;
+}
+
+.admin-availability-header p {
+    margin: 0;
+    color: #76696d;
+}
+
+.admin-back-button {
+    padding: 12px 20px;
+    border: 1px solid #d8c4c9;
+    background: transparent;
+    color: #4b353d;
+    cursor: pointer;
+}
+
+.admin-back-button:hover {
+    background: #302629;
+    color: #fff;
+}
+
+.admin-availability-message {
+    margin-bottom: 20px;
+    padding: 15px 18px;
+    border: 1px solid;
+}
+
+.admin-availability-message.error {
+    border-color: #e7bfc8;
+    background: #fff1f3;
+    color: #9d304e;
+}
+
+.admin-availability-message.success {
+    border-color: #c9ddce;
+    background: #f1f8f2;
+    color: #47764d;
+}
+
+.admin-calendar-card {
+    padding: 30px;
+    background: #fffdfb;
+    border: 1px solid rgba(104, 55, 67, 0.12);
+    box-shadow:
+        0 15px 40px rgba(74, 38, 47, 0.05);
+}
+
+.admin-calendar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.admin-calendar-top h2 {
+    margin: 0;
+    color: #302629;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.admin-calendar-top button {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #dfd0d4;
+    border-radius: 50%;
+    background: transparent;
+    color: #4b353d;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.admin-calendar-top button:hover {
+    background: #302629;
+    color: #fff;
+}
+
+.admin-calendar-weekdays,
+.admin-calendar-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(7, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.admin-calendar-weekdays {
+    margin-bottom: 10px;
+}
+
+.admin-calendar-weekdays div {
+    padding: 10px;
+    color: #8b777e;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.admin-calendar-empty {
+    min-height: 115px;
+}
+
+.admin-calendar-day {
+    min-height: 115px;
+    padding: 15px;
+    border: 1px solid #e4d8da;
+    background: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.admin-calendar-day:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 20px rgba(74, 38, 47, 0.08);
+}
+
+.admin-calendar-day.available {
+    border-color: #ddd1d4;
+}
+
+.admin-calendar-day.available
+    .admin-calendar-day-status {
+    color: #47764d;
+}
+
+.admin-calendar-day.blocked {
+    border-color: #e2bdc6;
+    background: #fff2f4;
+}
+
+.admin-calendar-day.blocked
+    .admin-calendar-day-status {
+    color: #9d4562;
+}
+
+.admin-calendar-day-number {
+    display: block;
+    margin-bottom: 20px;
+    color: #302629;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25px;
+}
+
+.admin-calendar-day-status {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.admin-calendar-day-reason {
+    display: block;
+    overflow: hidden;
+    color: #8b777e;
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-calendar-legend {
+    display: flex;
+    gap: 25px;
+    margin-top: 25px;
+    color: #76696d;
+    font-size: 12px;
+}
+
+.admin-calendar-legend span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.available-dot {
+    background: #47764d;
+}
+
+.blocked-dot {
+    background: #9d4562;
+}
+
+@media (max-width: 700px) {
+    .admin-availability-page {
+        padding: 40px 18px;
+    }
+
+    .admin-availability-header {
+        flex-direction: column;
+    }
+
+    .admin-availability-header h1 {
+        font-size: 38px;
+    }
+
+    .admin-calendar-card {
+        padding: 15px;
+        overflow-x: auto;
+    }
+
+    .admin-calendar-weekdays,
+    .admin-calendar-grid {
+        min-width: 650px;
+    }
+}

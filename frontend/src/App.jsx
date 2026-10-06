@@ -17,6 +17,8 @@ import AdminLogin from "./pages/AdminLogin";
 
 import PublicLayout from "./components/PublicLayout";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminBookings from "./pages/AdminBookings";
+import AdminAvailability from "./pages/AdminAvailability";
 
 function App() {
     return (
@@ -90,6 +92,16 @@ function App() {
                 <Route
                     path="/admin"
                     element={<AdminDashboard />}
+                />
+
+                <Route
+                    path="/admin/bookings"
+                    element={<AdminBookings />}
+                />
+
+                <Route
+                    path="/admin/availability"
+                    element={<AdminAvailability />}
                 />
 
             </Routes>

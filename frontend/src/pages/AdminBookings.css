@@ -1,0 +1,232 @@
+.admin-bookings-page {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 60px 6%;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(214, 143, 162, 0.14),
+            transparent 40%
+        ),
+        #f8f1ed;
+}
+
+.admin-bookings-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 45px;
+}
+
+.admin-bookings-eyebrow {
+    margin: 0 0 12px;
+    color: #9d4562;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.admin-bookings-header h1 {
+    margin: 0 0 10px;
+    color: #302629;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 48px;
+    font-weight: 400;
+}
+
+.admin-bookings-header p {
+    margin: 0;
+    color: #76696d;
+}
+
+.admin-bookings-header button {
+    padding: 12px 20px;
+    border: 1px solid #d8c4c9;
+    background: transparent;
+    color: #4b353d;
+    cursor: pointer;
+}
+
+.admin-bookings-header button:hover {
+    background: #302629;
+    color: #fff;
+}
+
+.admin-bookings-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: #fffdfb;
+    border: 1px solid rgba(104, 55, 67, 0.12);
+    box-shadow:
+        0 15px 40px rgba(74, 38, 47, 0.05);
+}
+
+.admin-bookings-table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+}
+
+.admin-bookings-table th {
+    padding: 17px 18px;
+    border-bottom: 1px solid #e5d9dc;
+    color: #806b72;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.admin-bookings-table td {
+    padding: 20px 18px;
+    border-bottom: 1px solid #eee4e5;
+    color: #4b3b40;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+.admin-bookings-table tbody tr:hover {
+    background: #fff8f8;
+}
+
+.admin-bookings-table td strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #302629;
+    font-weight: 600;
+}
+
+.admin-bookings-table td small {
+    color: #8b7b80;
+    line-height: 1.6;
+}
+
+.booking-status,
+.booking-payment {
+    display: inline-block;
+    padding: 6px 9px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.booking-status-pending {
+    background: #fff3dc;
+    color: #986b25;
+}
+
+.booking-status-confirmed {
+    background: #eaf6ec;
+    color: #47764d;
+}
+
+.booking-status-rejected,
+.booking-status-cancelled {
+    background: #fbe9ec;
+    color: #9d4562;
+}
+
+.booking-status-completed {
+    background: #eee9f5;
+    color: #68517f;
+}
+
+.booking-payment-unpaid {
+    background: #f5eeee;
+    color: #785e65;
+}
+
+.booking-payment-pending {
+    background: #fff3dc;
+    color: #986b25;
+}
+
+.booking-payment-paid {
+    background: #eaf6ec;
+    color: #47764d;
+}
+
+.admin-bookings-error {
+    padding: 16px;
+    border: 1px solid #e7bfc8;
+    background: #fff1f3;
+    color: #9d304e;
+}
+
+.admin-bookings-empty,
+.admin-bookings-state {
+    padding: 60px 30px;
+    background: #fffdfb;
+    border: 1px solid rgba(104, 55, 67, 0.12);
+    color: #76696d;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .admin-bookings-page {
+        padding: 40px 18px;
+    }
+
+    .admin-bookings-header {
+        flex-direction: column;
+    }
+
+    .admin-bookings-header h1 {
+        font-size: 38px;
+    }
+}
+
+.booking-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.booking-actions button {
+    padding: 7px 11px;
+    border: 1px solid transparent;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.booking-action-confirm {
+    background: #eaf6ec;
+    border-color: #c7dfca !important;
+    color: #47764d;
+}
+
+.booking-action-confirm:hover {
+    background: #47764d;
+    color: #fff;
+}
+
+.booking-action-reject {
+    background: #fbe9ec;
+    border-color: #e7c5cc !important;
+    color: #9d4562;
+}
+
+.booking-action-reject:hover {
+    background: #9d4562;
+    color: #fff;
+}
+
+.booking-action-complete {
+    background: #eee9f5;
+    border-color: #d8cce4 !important;
+    color: #68517f;
+}
+
+.booking-action-complete:hover {
+    background: #68517f;
+    color: #fff;
+}
+
+.booking-action-none {
+    color: #a09397;
+    font-size: 11px;
+}

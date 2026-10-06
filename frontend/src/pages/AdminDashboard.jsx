@@ -109,7 +109,14 @@ const AdminDashboard = () => {
                     </h1>
 
                     <p>
-                        Welcome back.
+                        Welcome back
+                        {adminData?.name
+                            ? `, ${adminData.name}`
+                            : "."}
+                    </p>
+
+                    <p>
+                        Role: {adminData?.role}
                     </p>
                 </div>
 
