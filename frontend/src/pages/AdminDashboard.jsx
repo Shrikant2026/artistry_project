@@ -132,7 +132,11 @@ const AdminDashboard = () => {
 
             <section className="admin-dashboard-grid">
 
-                <article>
+                <article
+                    onClick={() =>
+                        navigate("/admin/bookings")
+                    }
+                >
                     <span>01</span>
                     <h2>Bookings</h2>
                     <p>
@@ -140,7 +144,12 @@ const AdminDashboard = () => {
                     </p>
                 </article>
 
-                <article>
+
+                <article
+                    onClick={() =>
+                        navigate("/admin/availability")
+                    }
+                >
                     <span>02</span>
                     <h2>Availability</h2>
                     <p>
@@ -148,7 +157,12 @@ const AdminDashboard = () => {
                     </p>
                 </article>
 
-                <article>
+
+                <article
+                    onClick={() =>
+                        navigate("/admin/services")
+                    }
+                >
                     <span>03</span>
                     <h2>Services</h2>
                     <p>
@@ -156,13 +170,19 @@ const AdminDashboard = () => {
                     </p>
                 </article>
 
-                <article>
+
+                <article
+                    onClick={() =>
+                        navigate("/admin/portfolio")
+                    }
+                >
                     <span>04</span>
                     <h2>Portfolio</h2>
                     <p>
                         Manage gallery and portfolio images.
                     </p>
                 </article>
+
 
                 <article>
                     <span>05</span>

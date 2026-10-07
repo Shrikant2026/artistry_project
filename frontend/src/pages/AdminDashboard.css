@@ -61,6 +61,7 @@
 }
 
 .admin-dashboard-grid article {
+    cursor: pointer;
     min-height: 190px;
     padding: 30px;
     box-sizing: border-box;

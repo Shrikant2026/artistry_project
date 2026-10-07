@@ -5,6 +5,7 @@ const rateLimit = require("express-rate-limit");
 const dotenv = require("dotenv");
 const availabilityRoutes = require("./routes/availabilityRoutes");
 const servicesRoutes = require("./routes/servicesRoutes");
+const portfolioRoutes = require("./routes/portfolioRoutes");
 dotenv.config();
 
 const bookingRoutes = require("./routes/bookingRoutes");
@@ -117,6 +118,11 @@ app.use(
 app.use(
     "/api/services",
     servicesRoutes
+);
+
+app.use(
+    "/api/portfolio",
+    portfolioRoutes
 );
 
 app.use(

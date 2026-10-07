@@ -6,9 +6,11 @@ const {
     getAdminDashboard,
     getAdminBookings,
     updateAdminBookingStatus,
+    createAdminManualBooking,
     blockAdminDate,
     unblockAdminDate,
-    getAdminBlockedDates
+    getAdminBlockedDates,
+    updateAdminSlotAvailability
 } = require("../controllers/adminController");
 
 
@@ -33,6 +35,12 @@ router.patch(
     updateAdminBookingStatus
 );
 
+router.post(
+    "/bookings/manual",
+    adminAuth,
+    createAdminManualBooking
+);
+
 router.get(
     "/availability/blocked",
     adminAuth,
@@ -50,4 +58,11 @@ router.delete(
     adminAuth,
     unblockAdminDate
 );
+
+router.patch(
+    "/availability/slots/:id",
+    adminAuth,
+    updateAdminSlotAvailability
+);
+
 module.exports = router;

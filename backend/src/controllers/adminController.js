@@ -109,6 +109,168 @@ const updateAdminBookingStatus = async (
     }
 };
 
+const createAdminManualBooking = async (
+    req,
+    res
+) => {
+
+    try {
+
+        const {
+            slot_id,
+            service_id,
+            customer_name,
+            email,
+            phone,
+            event_type,
+            location,
+            message,
+            status,
+            payment_status
+        } = req.body;
+
+
+        // ==========================================
+        // BASIC VALIDATION
+        // ==========================================
+
+        if (
+            !slot_id ||
+            !customer_name?.trim() ||
+            !phone?.trim() ||
+            !event_type?.trim() ||
+            !location?.trim()
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Slot, customer name, phone, event type and location are required."
+            });
+
+        }
+
+
+        const allowedStatuses = [
+            "pending",
+            "confirmed"
+        ];
+
+        const bookingStatus =
+            status || "confirmed";
+
+        if (
+            !allowedStatuses.includes(
+                bookingStatus
+            )
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Invalid booking status."
+            });
+
+        }
+
+
+        const allowedPaymentStatuses = [
+            "unpaid",
+            "pending",
+            "paid"
+        ];
+
+        const bookingPaymentStatus =
+            payment_status || "unpaid";
+
+        if (
+            !allowedPaymentStatuses.includes(
+                bookingPaymentStatus
+            )
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Invalid payment status."
+            });
+
+        }
+
+
+        // ==========================================
+        // CREATE MANUAL BOOKING
+        // ==========================================
+
+        const booking =
+            await adminBookingService
+                .createManualBooking({
+
+                    slotId:
+                        slot_id,
+
+                    serviceId:
+                        service_id || null,
+
+                    customerName:
+                        customer_name,
+
+                    email:
+                        email || null,
+
+                    phone,
+
+                    eventType:
+                        event_type,
+
+                    location,
+
+                    message:
+                        message || null,
+
+                    status:
+                        bookingStatus,
+
+                    paymentStatus:
+                        bookingPaymentStatus
+
+                });
+
+
+        return res.status(201).json({
+
+            success: true,
+
+            message:
+                "Manual booking created successfully.",
+
+            booking
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Create manual booking error:",
+            error
+        );
+
+
+        return res.status(
+            error.statusCode || 500
+        ).json({
+
+            success: false,
+
+            message:
+                error.message ||
+                "Unable to create manual booking."
+
+        });
+
+    }
+};
+
 const blockAdminDate = async (
     req,
     res
@@ -254,11 +416,87 @@ const getAdminBlockedDates = async (
     }
 };
 
+const updateAdminSlotAvailability = async (
+    req,
+    res
+) => {
+
+    try {
+
+        const {
+            id
+        } = req.params;
+
+        const {
+            is_available
+        } = req.body;
+
+
+        if (
+            typeof is_available !==
+            "boolean"
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "is_available must be true or false."
+            });
+
+        }
+
+
+        const slot =
+            await adminAvailabilityService
+                .updateSlotAvailability(
+                    id,
+                    is_available
+                );
+
+
+        return res.json({
+
+            success: true,
+
+            message:
+                is_available
+                    ? "Slot made available."
+                    : "Slot blocked successfully.",
+
+            slot
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Update slot availability error:",
+            error
+        );
+
+
+        return res.status(
+            error.statusCode || 500
+        ).json({
+
+            success: false,
+
+            message:
+                error.message ||
+                "Unable to update slot."
+
+        });
+
+    }
+};
+
 module.exports = {
     getAdminDashboard,
     getAdminBookings,
     updateAdminBookingStatus,
+    createAdminManualBooking,
     blockAdminDate,
     unblockAdminDate,
-    getAdminBlockedDates
+    getAdminBlockedDates,
+    updateAdminSlotAvailability
 };

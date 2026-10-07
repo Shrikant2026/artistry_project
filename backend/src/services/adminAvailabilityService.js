@@ -93,8 +93,106 @@ const getBlockedDates = async (
     return data || [];
 };
 
+const updateSlotAvailability = async (
+    slotId,
+    isAvailable
+) => {
+
+    const {
+        data: slot,
+        error: findError
+    } = await supabase
+        .from("availability_slots")
+        .select(`
+            id,
+            slot_date,
+            start_time,
+            end_time,
+            is_available
+        `)
+        .eq("id", slotId)
+        .maybeSingle();
+
+    if (findError) {
+        throw findError;
+    }
+
+    if (!slot) {
+
+        const error =
+            new Error(
+                "Availability slot not found."
+            );
+
+        error.statusCode = 404;
+
+        throw error;
+    }
+
+
+    // Don't allow manually disabling
+    // a slot that already has an active booking.
+    if (!isAvailable) {
+
+        const {
+            data: activeBooking,
+            error: bookingError
+        } = await supabase
+            .from("bookings")
+            .select("id")
+            .eq("slot_id", slotId)
+            .in("status", [
+                "pending",
+                "confirmed"
+            ])
+            .maybeSingle();
+
+        if (bookingError) {
+            throw bookingError;
+        }
+
+        if (activeBooking) {
+
+            const error =
+                new Error(
+                    "This slot has an active booking and cannot be blocked."
+                );
+
+            error.statusCode = 409;
+
+            throw error;
+        }
+    }
+
+
+    const {
+        data: updatedSlot,
+        error: updateError
+    } = await supabase
+        .from("availability_slots")
+        .update({
+            is_available: isAvailable
+        })
+        .eq("id", slotId)
+        .select(`
+            id,
+            slot_date,
+            start_time,
+            end_time,
+            is_available
+        `)
+        .single();
+
+    if (updateError) {
+        throw updateError;
+    }
+
+    return updatedSlot;
+};
+
 module.exports = {
     blockDate,
     unblockDate,
-    getBlockedDates
+    getBlockedDates,
+    updateSlotAvailability
 };

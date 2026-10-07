@@ -1,0 +1,352 @@
+.admin-services-page {
+    min-height: 100vh;
+    padding: 48px;
+    background: #fbf7f5;
+    color: #302629;
+}
+
+.admin-services-header,
+.admin-service-list-header,
+.admin-service-form-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.admin-services-header {
+    margin-bottom: 32px;
+}
+
+.admin-services-header h1,
+.admin-service-form-header h2,
+.admin-service-list-header h2 {
+    margin: 6px 0 8px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    color: #302629;
+}
+
+.admin-services-header h1 {
+    font-size: 38px;
+}
+
+.admin-service-form-header h2,
+.admin-service-list-header h2 {
+    font-size: 27px;
+}
+
+.admin-services-header p {
+    margin: 0;
+    color: #765f64;
+    font-size: 14px;
+}
+
+.admin-section-eyebrow {
+    display: block;
+    color: #b66f7b;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+}
+
+.admin-service-new-button,
+.admin-service-save {
+    border: 1px solid #a96572;
+    background: #a96572;
+    color: #ffffff;
+    padding: 12px 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.admin-service-new-button:hover,
+.admin-service-save:hover {
+    background: #925762;
+}
+
+.admin-services-message {
+    margin-bottom: 24px;
+    padding: 13px 16px;
+    border: 1px solid #e3d2d3;
+    font-size: 13px;
+}
+
+.admin-services-message.error {
+    background: #fff5f5;
+    color: #8a414b;
+}
+
+.admin-services-message.success {
+    background: #f7faf7;
+    color: #4d6b52;
+}
+
+.admin-service-form-section,
+.admin-service-list-section {
+    background: #fffdfc;
+    border: 1px solid #ead9d9;
+    padding: 32px;
+    box-shadow: 0 8px 30px rgba(67, 42, 47, 0.04);
+}
+
+.admin-service-form-section {
+    margin-bottom: 32px;
+}
+
+.admin-service-form-header {
+    padding-bottom: 24px;
+    margin-bottom: 26px;
+    border-bottom: 1px solid #ead9d9;
+}
+
+.admin-service-cancel {
+    border: 1px solid #decacd;
+    background: transparent;
+    color: #654f54;
+    padding: 9px 15px;
+    cursor: pointer;
+}
+
+.admin-service-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 24px;
+}
+
+.admin-service-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.admin-service-field-full {
+    grid-column: 1 / -1;
+}
+
+.admin-service-field label {
+    font-size: 12px;
+    color: #624f53;
+    font-weight: 500;
+}
+
+.admin-service-field input,
+.admin-service-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddccce;
+    background: #fffdfc;
+    color: #302629;
+    padding: 11px 13px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.admin-service-field input {
+    min-height: 43px;
+}
+
+.admin-service-field textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.admin-service-field input:focus,
+.admin-service-field textarea:focus {
+    border-color: #bd7d88;
+    box-shadow: 0 0 0 3px rgba(189, 125, 136, 0.08);
+}
+
+.admin-service-field small {
+    color: #8b7479;
+    font-size: 11px;
+}
+
+.admin-service-publish-field {
+    display: flex;
+    align-items: center;
+}
+
+.admin-service-publish-field label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #624f53;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.admin-service-publish-field input {
+    accent-color: #a96572;
+}
+
+.admin-service-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #ead9d9;
+}
+
+.admin-service-form-actions button {
+    border: 1px solid #decacd;
+    background: transparent;
+    color: #654f54;
+    padding: 11px 20px;
+    cursor: pointer;
+}
+
+.admin-service-form-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-service-list-header {
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.admin-service-count {
+    color: #8a7479;
+    font-size: 12px;
+}
+
+.admin-service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-service-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px;
+    border: 1px solid #ead9d9;
+    background: #fff;
+}
+
+.admin-service-card-main {
+    min-width: 0;
+    flex: 1;
+}
+
+.admin-service-card-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.admin-service-order {
+    color: #b66f7b;
+    font-size: 11px;
+    padding-top: 5px;
+}
+
+.admin-service-card h3 {
+    margin: 0 0 3px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.admin-service-card-title span:last-child {
+    color: #9a8388;
+    font-size: 12px;
+}
+
+.admin-service-card p {
+    margin: 12px 0;
+    color: #765f64;
+    font-size: 13px;
+}
+
+.admin-service-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.admin-service-meta span {
+    color: #6d565b;
+    font-size: 12px;
+    padding-right: 10px;
+    border-right: 1px solid #e5d8d9;
+}
+
+.admin-service-meta span:last-child {
+    border-right: none;
+}
+
+.admin-service-meta .published {
+    color: #58735d;
+}
+
+.admin-service-meta .unpublished {
+    color: #9a646b;
+}
+
+.admin-service-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 105px;
+}
+
+.admin-service-card-actions button {
+    border: 1px solid #decacd;
+    background: transparent;
+    color: #654f54;
+    padding: 9px 13px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.admin-service-card-actions button:hover {
+    background: #f8eeee;
+}
+
+.admin-services-empty {
+    padding: 50px 20px;
+    text-align: center;
+    color: #8b7479;
+    border: 1px dashed #ddccce;
+}
+
+@media (max-width: 800px) {
+
+    .admin-services-page {
+        padding: 28px 20px;
+    }
+
+    .admin-service-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-service-field-full {
+        grid-column: auto;
+    }
+
+    .admin-services-header,
+    .admin-service-form-header {
+        flex-direction: column;
+    }
+
+    .admin-service-card {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-service-card-actions {
+        flex-direction: row;
+    }
+
+    .admin-service-card-actions button {
+        flex: 1;
+    }
+}

@@ -19,6 +19,8 @@ import PublicLayout from "./components/PublicLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminBookings from "./pages/AdminBookings";
 import AdminAvailability from "./pages/AdminAvailability";
+import AdminServices from "./pages/AdminServices";
+import AdminPortfolio from "./pages/AdminPortfolio";
 
 function App() {
     return (
@@ -102,6 +104,16 @@ function App() {
                 <Route
                     path="/admin/availability"
                     element={<AdminAvailability />}
+                />
+
+                <Route
+                    path="/admin/services"
+                    element={<AdminServices />}
+                />
+
+                <Route
+                    path="/admin/portfolio"
+                    element={<AdminPortfolio />}
                 />
 
             </Routes>

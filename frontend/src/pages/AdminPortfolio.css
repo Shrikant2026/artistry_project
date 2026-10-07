@@ -1,0 +1,391 @@
+.admin-portfolio-page {
+    min-height: 100vh;
+    padding: 48px;
+    background: #fbf7f5;
+    color: #302629;
+}
+
+.admin-portfolio-header,
+.admin-portfolio-list-header,
+.admin-portfolio-form-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.admin-portfolio-header {
+    margin-bottom: 32px;
+}
+
+.admin-portfolio-header h1,
+.admin-portfolio-form-header h2,
+.admin-portfolio-list-header h2 {
+    margin: 6px 0 8px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    color: #302629;
+}
+
+.admin-portfolio-header h1 {
+    font-size: 38px;
+}
+
+.admin-portfolio-form-header h2,
+.admin-portfolio-list-header h2 {
+    font-size: 27px;
+}
+
+.admin-portfolio-header p {
+    margin: 0;
+    color: #765f64;
+    font-size: 14px;
+}
+
+.admin-section-eyebrow {
+    display: block;
+    color: #b66f7b;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+}
+
+.admin-portfolio-new-button,
+.admin-portfolio-save {
+    border: 1px solid #a96572;
+    background: #a96572;
+    color: #ffffff;
+    padding: 12px 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.admin-portfolio-new-button:hover,
+.admin-portfolio-save:hover {
+    background: #925762;
+}
+
+.admin-portfolio-message {
+    margin-bottom: 24px;
+    padding: 13px 16px;
+    border: 1px solid #e3d2d3;
+    font-size: 13px;
+}
+
+.admin-portfolio-message.error {
+    background: #fff5f5;
+    color: #8a414b;
+}
+
+.admin-portfolio-message.success {
+    background: #f7faf7;
+    color: #4d6b52;
+}
+
+.admin-portfolio-form-section,
+.admin-portfolio-list-section {
+    background: #fffdfc;
+    border: 1px solid #ead9d9;
+    padding: 32px;
+    box-shadow: 0 8px 30px rgba(67, 42, 47, 0.04);
+}
+
+.admin-portfolio-form-section {
+    margin-bottom: 32px;
+}
+
+.admin-portfolio-form-header {
+    padding-bottom: 24px;
+    margin-bottom: 26px;
+    border-bottom: 1px solid #ead9d9;
+}
+
+.admin-portfolio-cancel {
+    border: 1px solid #decacd;
+    background: transparent;
+    color: #654f54;
+    padding: 9px 15px;
+    cursor: pointer;
+}
+
+.admin-portfolio-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 24px;
+}
+
+.admin-portfolio-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.admin-portfolio-field-full {
+    grid-column: 1 / -1;
+}
+
+.admin-portfolio-field label {
+    font-size: 12px;
+    color: #624f53;
+    font-weight: 500;
+}
+
+.admin-portfolio-field input,
+.admin-portfolio-field select,
+.admin-portfolio-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddccce;
+    background: #fffdfc;
+    color: #302629;
+    padding: 11px 13px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.admin-portfolio-field input,
+.admin-portfolio-field select {
+    min-height: 43px;
+}
+
+.admin-portfolio-field textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.admin-portfolio-field input:focus,
+.admin-portfolio-field select:focus,
+.admin-portfolio-field textarea:focus {
+    border-color: #bd7d88;
+    box-shadow: 0 0 0 3px rgba(189, 125, 136, 0.08);
+}
+
+.admin-portfolio-field small {
+    color: #8b7479;
+    font-size: 11px;
+}
+
+.admin-portfolio-options {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.admin-portfolio-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #624f53;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.admin-portfolio-options input {
+    accent-color: #a96572;
+}
+
+.admin-portfolio-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #ead9d9;
+}
+
+.admin-portfolio-form-actions button {
+    border: 1px solid #decacd;
+    background: transparent;
+    color: #654f54;
+    padding: 11px 20px;
+    cursor: pointer;
+}
+
+.admin-portfolio-form-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-portfolio-list-header {
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.admin-portfolio-count {
+    color: #8a7479;
+    font-size: 12px;
+}
+
+.admin-portfolio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-portfolio-card {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr) 125px;
+    align-items: center;
+    gap: 22px;
+    padding: 18px;
+    border: 1px solid #ead9d9;
+    background: #ffffff;
+}
+
+.admin-portfolio-preview {
+    width: 130px;
+    height: 110px;
+    overflow: hidden;
+    background: #f6eeee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #987e83;
+    font-size: 11px;
+}
+
+.admin-portfolio-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-portfolio-card-main {
+    min-width: 0;
+}
+
+.admin-portfolio-card-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.admin-portfolio-order {
+    color: #b66f7b;
+    font-size: 11px;
+    padding-top: 5px;
+}
+
+.admin-portfolio-card h3 {
+    margin: 0 0 3px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.admin-portfolio-card-title span:last-child {
+    color: #9a8388;
+    font-size: 12px;
+}
+
+.admin-portfolio-card p {
+    margin: 12px 0;
+    color: #765f64;
+    font-size: 13px;
+}
+
+.admin-portfolio-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.admin-portfolio-meta span {
+    color: #6d565b;
+    font-size: 12px;
+}
+
+.admin-portfolio-meta .published {
+    color: #58735d;
+}
+
+.admin-portfolio-meta .unpublished {
+    color: #9a646b;
+}
+
+.admin-portfolio-meta .featured {
+    color: #a46d43;
+}
+
+.admin-portfolio-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.admin-portfolio-card-actions button {
+    border: 1px solid #decacd;
+    background: transparent;
+    color: #654f54;
+    padding: 9px 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.admin-portfolio-card-actions button:hover {
+    background: #f8eeee;
+}
+
+.admin-portfolio-empty {
+    padding: 50px 20px;
+    text-align: center;
+    color: #8b7479;
+    border: 1px dashed #ddccce;
+}
+
+@media (max-width: 850px) {
+
+    .admin-portfolio-page {
+        padding: 28px 20px;
+    }
+
+    .admin-portfolio-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-portfolio-field-full {
+        grid-column: auto;
+    }
+
+    .admin-portfolio-header,
+    .admin-portfolio-form-header {
+        flex-direction: column;
+    }
+
+    .admin-portfolio-card {
+        grid-template-columns: 100px minmax(0, 1fr);
+    }
+
+    .admin-portfolio-preview {
+        width: 100px;
+        height: 90px;
+    }
+
+    .admin-portfolio-card-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+    }
+
+    .admin-portfolio-card-actions button {
+        flex: 1;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .admin-portfolio-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-portfolio-card {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-portfolio-preview {
+        width: 100%;
+        height: 180px;
+    }
+}
