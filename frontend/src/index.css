@@ -1,71 +1,233 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Italianno&display=swap");
 
+
+/* ==================================================
+   RUPANJALI'S MAKEUP ARTISTRY
+   GLOBAL DESIGN SYSTEM
+================================================== */
+
 :root {
-    --rose-950: #4b1426;
-    --rose-900: #681d35;
-    --rose-800: #842642;
-    --rose-700: #a93455;
-    --rose-600: #c54c6d;
-    --rose-500: #dc718d;
-    --rose-400: #ed9eb1;
 
-    --blush: #f8dce2;
-    --petal: #fcebee;
-    --peach: #f9ddd5;
-    --cream: #fff8f6;
+    /* =========================================
+       PRIMARY BRAND PALETTE
+    ========================================= */
 
-    --wine: #541528;
-    --text: #341c25;
-    --muted: #745a63;
+    --ivory: #F6EFEC;
+    --espresso: #181514;
 
-    --white-glass: rgba(255, 255, 255, 0.38);
-    --white-glass-strong: rgba(255, 255, 255, 0.62);
+    --blush: #CBAEB0;
+    --dusty-rose: #AE9599;
+    --rose: #C87B8A;
+    --peach: #D9C5B6;
 
-    --glass-border: rgba(255, 255, 255, 0.65);
+    --gold: #F59E0B;
+
+
+    /* =========================================
+       LEGACY COLOR ALIASES
+
+       Existing pages already use these names.
+       We remap them instead of changing layouts.
+    ========================================= */
+
+    --rose-950: #181514;
+
+    --rose-900: #302827;
+
+    --rose-800: #5A4547;
+
+    --rose-700: #7D5C61;
+
+    --rose-600: #C87B8A;
+
+    --rose-500: #AE9599;
+
+    --rose-400: #CBAEB0;
+
+
+    /* =========================================
+       BACKGROUNDS
+    ========================================= */
+
+    --cream: #FBF8F6;
+
+    --petal: #F4E5E3;
+
+    --soft-rose: #F1E1DF;
+
+    --soft-peach: #EFE2D8;
+
+
+    /* =========================================
+       TEXT
+    ========================================= */
+
+    --wine: #181514;
+
+    --text: #181514;
+
+    --muted: #665D5D;
+
+
+    /* =========================================
+       GLASS
+    ========================================= */
+
+    --white-glass:
+        rgba(255, 255, 255, 0.48);
+
+    --white-glass-strong:
+        rgba(255, 255, 255, 0.72);
+
+    --glass-border:
+        rgba(255, 255, 255, 0.78);
+
+
+    /* =========================================
+       BORDERS
+    ========================================= */
+
+    --border:
+        rgba(24, 21, 20, 0.08);
+
+    --border-soft:
+        rgba(24, 21, 20, 0.06);
+
+    --border-rose:
+        rgba(200, 123, 138, 0.20);
+
+
+    /* =========================================
+       SHADOWS
+    ========================================= */
 
     --glass-shadow:
-        0 25px 70px rgba(91, 24, 47, 0.13);
+        0 20px 55px
+        rgba(24, 21, 20, 0.07);
+
+    --shadow:
+        0 12px 35px
+        rgba(24, 21, 20, 0.07);
+
+
+    /* =========================================
+       GRADIENTS
+    ========================================= */
+
+    --gradient-main:
+        linear-gradient(
+            135deg,
+            #F6EFEC 0%,
+            #F4E5E3 55%,
+            #E9DDDA 100%
+        );
+
+    --gradient-soft:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.78),
+            rgba(244, 229, 227, 0.45)
+        );
+
+    --gradient-rose:
+        linear-gradient(
+            135deg,
+            #C87B8A,
+            #AE9599
+        );
+
+    --gradient-peach:
+        linear-gradient(
+            135deg,
+            #F6EFEC,
+            #D9C5B6
+        );
+
+
+    /* =========================================
+       LAYOUT
+       DO NOT CHANGE THESE
+    ========================================= */
 
     --container: 1240px;
+
+
+    /* =========================================
+       RADIUS
+    ========================================= */
+
+    --radius-sm: 10px;
+
+    --radius-md: 16px;
+
+    --radius-lg: 24px;
+
+    --radius-xl: 32px;
+
+
+    /* =========================================
+       MOTION
+    ========================================= */
+
+    --transition:
+        0.3s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
 }
+
+
+/* ==================================================
+   GLOBAL RESET
+================================================== */
 
 * {
     box-sizing: border-box;
 }
 
+
 html {
     scroll-behavior: smooth;
 }
 
+
 body {
     margin: 0;
 
-    color: var(--text);
+    color: var(--espresso);
 
-    font-family: "DM Sans", sans-serif;
+    font-family:
+        "DM Sans",
+        sans-serif;
 
     background:
+
         radial-gradient(
-            circle at 10% 10%,
-            rgba(236, 125, 153, 0.22),
-            transparent 30%
+            circle at 8% 8%,
+            rgba(200, 123, 138, 0.08),
+            transparent 28%
         ),
+
         radial-gradient(
-            circle at 90% 20%,
-            rgba(246, 187, 176, 0.25),
-            transparent 30%
+            circle at 92% 15%,
+            rgba(217, 197, 182, 0.13),
+            transparent 28%
         ),
+
         linear-gradient(
             135deg,
-            #fff9f7,
-            #fce7eb 45%,
-            #f8d5dc
+            #F9F4F1,
+            #F6EFEC 55%,
+            #F3E9E6
         );
 
     min-height: 100vh;
 
     -webkit-font-smoothing: antialiased;
 }
+
 
 button,
 input,
@@ -74,43 +236,70 @@ select {
     font: inherit;
 }
 
+
 button {
     cursor: pointer;
 }
 
+
 img {
     max-width: 100%;
+
     display: block;
 }
 
+
 a {
     color: inherit;
+
     text-decoration: none;
 }
+
 
 #root {
     min-height: 100vh;
 }
 
+
+/* ==================================================
+   PAGE CONTAINER
+   KEEPING YOUR ORIGINAL SIZE
+================================================== */
+
 .page-container {
-    width: min(
-        var(--container),
-        calc(100% - 40px)
-    );
+    width:
+        min(
+            var(--container),
+            calc(100% - 40px)
+        );
 
     margin: auto;
 }
 
+
+/* ==================================================
+   GLASS
+================================================== */
+
 .glass {
-    background: var(--white-glass);
+    background:
+        rgba(255, 255, 255, 0.52);
 
-    border: 1px solid var(--glass-border);
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.78);
 
-    box-shadow: var(--glass-shadow);
+    box-shadow:
+        0 18px 50px
+        rgba(24, 21, 20, 0.07);
 
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
 }
+
 
 .glass-card {
     border-radius: 28px;
@@ -118,19 +307,52 @@ a {
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,.52),
-            rgba(255,255,255,.22)
+            rgba(255, 255, 255, 0.68),
+            rgba(255, 255, 255, 0.40)
         );
 
-    border: 1px solid rgba(255,255,255,.68);
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.82);
 
     box-shadow:
-        0 25px 60px rgba(91,24,47,.11),
-        inset 0 1px 0 rgba(255,255,255,.75);
+        0 20px 55px
+        rgba(24, 21, 20, 0.07),
 
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+        inset
+        0 1px 0
+        rgba(255, 255, 255, 0.9);
+
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
 }
+
+
+.glass-card:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+
+        0 30px 70px
+        rgba(24, 21, 20, 0.11),
+
+        inset
+        0 1px 0
+        rgba(255, 255, 255, 0.88);
+}
+
+
+/* ==================================================
+   EYEBROW
+================================================== */
 
 .eyebrow {
     display: inline-flex;
@@ -139,16 +361,18 @@ a {
 
     gap: 10px;
 
-    color: var(--rose-800);
+    color:
+        var(--blush);
 
     font-size: 11px;
 
-    font-weight: 700;
+    font-weight: 600;
 
     letter-spacing: 3px;
 
     text-transform: uppercase;
 }
+
 
 .eyebrow::after {
     content: "";
@@ -157,38 +381,67 @@ a {
 
     height: 1px;
 
-    background: var(--rose-600);
+    background:
+        var(--rose);
 }
+
+
+/* ==================================================
+   PAGE TITLES
+   SAME SIZE AS YOUR ORIGINAL
+================================================== */
 
 .page-title {
     margin: 12px 0;
 
-    font-family: "Cormorant Garamond", serif;
+    font-family:
+        "Cormorant Garamond",
+        serif;
 
-    font-size: clamp(48px, 7vw, 88px);
+    font-size:
+        clamp(
+            48px,
+            7vw,
+            88px
+        );
 
     font-weight: 600;
 
     line-height: .95;
 
-    color: var(--rose-950);
+    color:
+        var(--espresso);
 }
 
+
 .page-title em {
-    color: var(--rose-600);
+    color:
+        var(--rose);
 
     font-weight: 400;
 }
 
+
+/* ==================================================
+   PAGE DESCRIPTION
+================================================== */
+
 .page-description {
     max-width: 650px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     font-size: 16px;
 
     line-height: 1.8;
 }
+
+
+/* ==================================================
+   BUTTONS
+   SAME SIZE AS YOUR ORIGINAL
+================================================== */
 
 .button {
     display: inline-flex;
@@ -205,7 +458,9 @@ a {
 
     border-radius: 999px;
 
-    border: 1px solid rgba(255,255,255,.5);
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.65);
 
     font-size: 13px;
 
@@ -214,77 +469,146 @@ a {
     transition:
         transform .25s ease,
         box-shadow .25s ease,
-        background .25s ease;
+        background .25s ease,
+        border-color .25s ease;
 }
+
 
 .button:hover {
-    transform: translateY(-3px);
+    transform:
+        translateY(-3px);
 }
 
+
+/* ----------------------------------------------
+   PRIMARY
+---------------------------------------------- */
+
 .button-primary {
-    color: white;
+    color: #FFFFFF;
 
     background:
-        linear-gradient(
-            135deg,
-            var(--rose-700),
-            var(--rose-500)
-        );
+        var(--espresso);
+
+    border-color:
+        var(--espresso);
 
     box-shadow:
-        0 14px 35px rgba(169,52,85,.25);
+        0 12px 30px
+        rgba(24, 21, 20, 0.14);
 }
 
 .button-primary:hover {
+    background:
+        #302827;
+
+    border-color:
+        #302827;
+
     box-shadow:
-        0 18px 45px rgba(169,52,85,.35);
+        0 16px 38px
+        rgba(24, 21, 20, 0.18);
 }
+
+
+/* ----------------------------------------------
+   GLASS BUTTON
+---------------------------------------------- */
 
 .button-glass {
-    color: var(--rose-900);
+    color:
+        var(--espresso);
 
-    background: rgba(255,255,255,.48);
+    background:
+        rgba(255, 255, 255, 0.55);
 
-    border-color: rgba(255,255,255,.75);
+    border-color:
+        rgba(24, 21, 20, 0.08);
 
-    backdrop-filter: blur(15px);
+    backdrop-filter:
+        blur(16px);
+
+    -webkit-backdrop-filter:
+        blur(16px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(24, 21, 20, 0.04);
 }
+
+.button-glass:hover {
+    background:
+        rgba(255, 255, 255, 0.82);
+
+    border-color:
+        rgba(200, 123, 138, 0.20);
+}
+
+
+/* ==================================================
+   SECTION
+   SAME SIZE AS YOUR ORIGINAL
+================================================== */
 
 .section {
-    padding: 110px 0;
+    padding:
+        110px 0;
 }
+
+
+/* ==================================================
+   ANIMATIONS
+================================================== */
 
 @keyframes float {
-    0%,100% {
-        transform: translateY(0);
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(-8px);
+        transform:
+            translateY(-8px);
     }
 }
+
 
 @keyframes pulseGlow {
-    0%,100% {
+
+    0%,
+    100% {
         box-shadow:
-            0 0 0 0 rgba(197,76,109,.15);
+            0 0 0 0
+            rgba(200, 123, 138, 0.15);
     }
 
     50% {
         box-shadow:
-            0 0 0 14px rgba(197,76,109,0);
+            0 0 0 14px
+            rgba(200, 123, 138, 0);
     }
 }
 
+
+/* ==================================================
+   MOBILE
+================================================== */
+
 @media(max-width:768px) {
+
     .page-container {
-        width: min(
-            var(--container),
-            calc(100% - 28px)
-        );
+        width:
+            min(
+                var(--container),
+                calc(100% - 28px)
+            );
     }
 
     .section {
-        padding: 75px 0;
+        padding:
+            75px 0;
     }
+
 }
