@@ -345,11 +345,50 @@ const uploadPortfolioImage = async (
     }
 };
 
+const deletePortfolioItem = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({
+                success: false,
+                message: "Portfolio item ID is required."
+            });
+        }
+
+        const deletedItem =
+            await portfolioService.deletePortfolioItem(id);
+
+        return res.json({
+            success: true,
+            message:
+                "Portfolio item deleted successfully.",
+            item: deletedItem
+        });
+
+    } catch (error) {
+        console.error(
+            "Delete portfolio item error:",
+            error
+        );
+
+        return res.status(
+            Number(error.statusCode) || 500
+        ).json({
+            success: false,
+            message:
+                error.message ||
+                "Unable to delete portfolio item."
+        });
+    }
+};
+
 module.exports = {
     getPortfolio,
     getPortfolioCategories,
     getAdminPortfolio,
     createPortfolioItem,
     updatePortfolioItem,
-    uploadPortfolioImage
+    uploadPortfolioImage,
+    deletePortfolioItem
 };

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import CalendarCTA from "../components/CalendarCTA/CalendarCTA";
-
+import Reviews from "../components/Reviews/Reviews";
 import "./Home.css";
 
 function Home() {
@@ -194,6 +194,10 @@ function Home() {
                 </div>
 
             </section>
+
+             {/* REVIEWS */}
+
+            <Reviews />
 
         </div>
     );

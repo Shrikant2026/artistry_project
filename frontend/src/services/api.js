@@ -357,6 +357,212 @@ export const adminPortfolioApi = {
 
         return response.data;
     },
+    remove: async (token, portfolioId) => {
+        const response =
+            await api.delete(
+                `/api/portfolio/admin/${portfolioId}`,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+        return response.data;
+    },
+};
+
+export const storiesApi = {
+    getAll: async () => {
+        const response =
+            await api.get("/api/stories");
+
+        return response.data;
+    },
+
+    getBySlug: async (slug) => {
+        const response =
+            await api.get(
+                `/api/stories/slug/${slug}`
+            );
+
+        return response.data;
+    }
+};
+
+
+export const adminStoriesApi = {
+    getAll: async (token) => {
+        const response =
+            await api.get(
+                "/api/stories/admin",
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+        return response.data;
+    },
+
+    create: async (
+        token,
+        storyData
+    ) => {
+        const response =
+            await api.post(
+                "/api/stories/admin",
+                storyData,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+        return response.data;
+    },
+
+    update: async (
+        token,
+        storyId,
+        storyData
+    ) => {
+        const response =
+            await api.patch(
+                `/api/stories/admin/${storyId}`,
+                storyData,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+        return response.data;
+    },
+
+    remove: async (
+        token,
+        storyId
+    ) => {
+        const response =
+            await api.delete(
+                `/api/stories/admin/${storyId}`,
+                {
+                    headers: {
+                        Authorization:
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+        return response.data;
+    },
+
+    uploadImage: async (token, file) => {
+        const formData = new FormData();
+
+        formData.append("image", file);
+
+        const response = await api.post(
+            "/api/stories/admin/upload",
+            formData,
+            {
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`,
+                    "Content-Type": undefined
+                }
+            }
+        );
+
+        return response.data;
+    },
+    
+
+};
+
+export const reviewsApi = {
+    get: async () => {
+        const response = await api.get(
+            "/api/reviews"
+        );
+
+        return response.data;
+    }
+};
+
+export const adminReviewsApi = {
+    getAll: async (token) => {
+        const response = await api.get(
+            "/api/reviews/admin",
+            {
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`
+                }
+            }
+        );
+
+        return response.data;
+    },
+
+    create: async (token, reviewData) => {
+        const response = await api.post(
+            "/api/reviews/admin",
+            reviewData,
+            {
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`
+                }
+            }
+        );
+
+        return response.data;
+    },
+
+    update: async (
+        token,
+        reviewId,
+        reviewData
+    ) => {
+        const response = await api.patch(
+            `/api/reviews/admin/${reviewId}`,
+            reviewData,
+            {
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`
+                }
+            }
+        );
+
+        return response.data;
+    },
+
+    delete: async (
+        token,
+        reviewId
+    ) => {
+        const response = await api.delete(
+            `/api/reviews/admin/${reviewId}`,
+            {
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`
+                }
+            }
+        );
+
+        return response.data;
+    }
 };
 
 export default api;

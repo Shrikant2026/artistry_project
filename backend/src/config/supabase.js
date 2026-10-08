@@ -5,7 +5,7 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl) {
     throw new Error("SUPABASE_URL is missing from environment variables");
-}
+} 
 
 if (!supabaseServiceRoleKey) {
     throw new Error(

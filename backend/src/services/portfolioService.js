@@ -266,11 +266,45 @@ const updatePortfolioItem = async (
     return data;
 };
 
+const deletePortfolioItem = async (id) => {
+
+    // First get the portfolio item
+    const {
+        data: item,
+        error: fetchError
+    } = await supabase
+        .from("portfolio_items")
+        .select(`
+            id,
+            storage_path
+        `)
+        .eq("id", id)
+        .single();
+
+    if (fetchError) {
+        throw fetchError;
+    }
+
+    // Delete database record
+    const {
+        error: deleteError
+    } = await supabase
+        .from("portfolio_items")
+        .delete()
+        .eq("id", id);
+
+    if (deleteError) {
+        throw deleteError;
+    }
+
+    return item;
+};
 
 module.exports = {
     getPortfolio,
     getPortfolioCategories,
     getAdminPortfolio,
+    deletePortfolioItem,
     createPortfolioItem,
     updatePortfolioItem
 };

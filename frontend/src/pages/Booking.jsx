@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { availabilityApi, servicesApi, bookingApi } from "../services/api";
 import "./Booking.css";
 
+import { Link, useSearchParams } from "react-router-dom";
+
 const WEEK_DAYS = [
     "MON",
     "TUE",
@@ -126,6 +128,11 @@ function Booking() {
         message: ""
     });
 
+    const [searchParams] = useSearchParams();
+
+    const selectedServiceSlug =
+        searchParams.get("service");
+
     // ==========================================
     // LOAD AVAILABILITY
     // ==========================================
@@ -224,6 +231,26 @@ function Booking() {
                 const response =
                     await servicesApi.get();
 
+                const services =
+                    response.services || [];
+
+                if (selectedServiceSlug) {
+                    const selectedService =
+                        services.find(
+                            (service) =>
+                                service.slug ===
+                                selectedServiceSlug
+                        );
+
+                    if (selectedService) {
+                        setForm((previous) => ({
+                            ...previous,
+                            event_type:
+                                selectedService.name
+                        }));
+                    }
+                }
+
                 if (response.success) {
                     setServices(
                         response.services || []
@@ -238,7 +265,8 @@ function Booking() {
         };
 
         loadServices();
-    }, []);
+
+    }, [selectedServiceSlug]);
 
     // ==========================================
     // CALENDAR DAYS
@@ -989,19 +1017,19 @@ function Booking() {
                                     </span>
 
                                     <select
-                                        name="service_id"
-                                        value={form.service_id}
+                                        name="event_type"
+                                        value={form.event_type}
                                         onChange={handleChange}
                                         required
                                     >
                                         <option value="">
-                                            Select event
+                                            Select service
                                         </option>
 
                                         {services.map((service) => (
                                             <option
                                                 key={service.id}
-                                                value={service.id}
+                                                value={service.name}
                                             >
                                                 {service.name}
                                             </option>

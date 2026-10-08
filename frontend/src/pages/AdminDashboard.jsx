@@ -11,6 +11,8 @@ const AdminDashboard = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [adminData, setAdminData] = useState(null);
+    const [stats, setStats] = useState(null);
+    const [upcomingBookings, setUpcomingBookings] = useState([]);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -58,6 +60,10 @@ const AdminDashboard = () => {
                 }
 
                 setAdminData(result.admin);
+                setStats(result.stats);
+                setUpcomingBookings(
+                    result.upcomingBookings || []
+                );
 
                 setLoading(false);
 
@@ -129,6 +135,33 @@ const AdminDashboard = () => {
 
             </header>
 
+            <section className="admin-dashboard-stats">
+
+                <article>
+                    <span>Pending</span>
+                    <strong>{stats?.pending ?? 0}</strong>
+                    <p>Awaiting your response</p>
+                </article>
+
+                <article>
+                    <span>Confirmed</span>
+                    <strong>{stats?.confirmed ?? 0}</strong>
+                    <p>Confirmed appointments</p>
+                </article>
+
+                <article>
+                    <span>Upcoming</span>
+                    <strong>{stats?.upcoming ?? 0}</strong>
+                    <p>Future active bookings</p>
+                </article>
+
+                <article>
+                    <span>Today</span>
+                    <strong>{stats?.today ?? 0}</strong>
+                    <p>Appointments today</p>
+                </article>
+
+            </section>
 
             <section className="admin-dashboard-grid">
 
@@ -184,13 +217,100 @@ const AdminDashboard = () => {
                 </article>
 
 
-                <article>
+                <article
+                    onClick={() =>
+                        navigate("/admin/stories")
+                    }
+                >
                     <span>05</span>
                     <h2>Stories</h2>
                     <p>
                         Manage website stories and articles.
                     </p>
                 </article>
+
+                <article
+                    onClick={() =>
+                        navigate("/admin/reviews")
+                    }
+                >
+                    <span>06</span>
+                    <h2>Reviews</h2>
+                    <p>
+                        Manage client testimonials and reviews.
+                    </p>
+                </article>
+
+            </section>
+
+            <section className="admin-dashboard-upcoming">
+
+                <div className="admin-dashboard-section-header">
+                    <div>
+                        <p className="admin-dashboard-eyebrow">
+                            Schedule
+                        </p>
+
+                        <h2>Upcoming Appointments</h2>
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={() =>
+                            navigate("/admin/bookings")
+                        }
+                    >
+                        View All
+                    </button>
+                </div>
+
+                {upcomingBookings.length === 0 ? (
+                    <div className="admin-dashboard-empty">
+                        <p>No upcoming appointments.</p>
+                    </div>
+                ) : (
+                    <div className="admin-dashboard-bookings">
+
+                        {upcomingBookings.map((booking) => (
+                            <article
+                                key={booking.id}
+                                className="admin-dashboard-booking"
+                            >
+                                <div className="admin-dashboard-booking-date">
+                                    <strong>
+                                        {booking.event_date}
+                                    </strong>
+
+                                    <span>
+                                        {booking.start_time}
+                                    </span>
+                                </div>
+
+                                <div className="admin-dashboard-booking-info">
+                                    <h3>
+                                        {booking.customer_name}
+                                    </h3>
+
+                                    <p>
+                                        {booking.service?.name ||
+                                            booking.event_type}
+                                    </p>
+
+                                    <span>
+                                        {booking.location}
+                                    </span>
+                                </div>
+
+                                <div
+                                    className={`admin-dashboard-booking-status ${booking.status}`}
+                                >
+                                    {booking.status}
+                                </div>
+                            </article>
+                        ))}
+
+                    </div>
+                )}
 
             </section>
 

@@ -4,15 +4,103 @@ const adminAvailabilityService =
     require("../services/adminAvailabilityService");
 
 const getAdminDashboard = async (req, res) => {
-    return res.json({
-        success: true,
-        message: "Admin authentication successful.",
-        admin: {
-            id: req.admin.id,
-            name: req.admin.full_name,
-            role: req.admin.role
-        }
-    });
+    try {
+        const bookings =
+            await adminBookingService.getBookings();
+
+        const today =
+            new Date()
+                .toISOString()
+                .slice(0, 10);
+
+        const pendingBookings =
+            bookings.filter(
+                booking =>
+                    booking.status === "pending"
+            );
+
+        const confirmedBookings =
+            bookings.filter(
+                booking =>
+                    booking.status === "confirmed"
+            );
+
+        const upcomingBookings =
+            bookings.filter(
+                booking =>
+                    (
+                        booking.status === "pending" ||
+                        booking.status === "confirmed"
+                    ) &&
+                    booking.event_date >= today
+            );
+
+        const todayBookings =
+            bookings.filter(
+                booking =>
+                    booking.event_date === today &&
+                    (
+                        booking.status === "pending" ||
+                        booking.status === "confirmed"
+                    )
+            );
+
+        // Only send the most relevant upcoming bookings
+        const upcoming =
+            upcomingBookings
+                .slice()
+                .sort((a, b) => {
+
+                    const dateCompare =
+                        a.event_date.localeCompare(
+                            b.event_date
+                        );
+
+                    if (dateCompare !== 0) {
+                        return dateCompare;
+                    }
+
+                    return a.start_time.localeCompare(
+                        b.start_time
+                    );
+                })
+                .slice(0, 5);
+
+        return res.json({
+            success: true,
+
+            message:
+                "Admin dashboard loaded successfully.",
+
+            admin: {
+                id: req.admin.id,
+                name: req.admin.full_name,
+                role: req.admin.role
+            },
+
+            stats: {
+                pending: pendingBookings.length,
+                confirmed: confirmedBookings.length,
+                upcoming: upcomingBookings.length,
+                today: todayBookings.length
+            },
+
+            upcomingBookings: upcoming
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Get admin dashboard error:",
+            error
+        );
+
+        return res.status(500).json({
+            success: false,
+            message:
+                "Unable to load admin dashboard."
+        });
+    }
 };
 
 const getAdminBookings = async (

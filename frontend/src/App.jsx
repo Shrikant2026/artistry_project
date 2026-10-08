@@ -21,6 +21,9 @@ import AdminBookings from "./pages/AdminBookings";
 import AdminAvailability from "./pages/AdminAvailability";
 import AdminServices from "./pages/AdminServices";
 import AdminPortfolio from "./pages/AdminPortfolio";
+import AdminStories from "./pages/AdminStories";
+import Service from "./pages/Service";
+import AdminReviews from "./pages/AdminReviews";
 
 function App() {
     return (
@@ -79,6 +82,11 @@ function App() {
                         element={<ApiTest />}
                     />
 
+                    <Route
+                        path="/services/:slug"
+                        element={<Service />}
+                    />
+
                 </Route>
 
 
@@ -114,6 +122,16 @@ function App() {
                 <Route
                     path="/admin/portfolio"
                     element={<AdminPortfolio />}
+                />
+
+                <Route
+                    path="/admin/stories"
+                    element={<AdminStories />}
+                />
+
+                <Route
+                    path="/admin/reviews"
+                    element={<AdminReviews />}
                 />
 
             </Routes>

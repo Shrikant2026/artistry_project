@@ -197,7 +197,7 @@ const AdminPortfolio = () => {
                     selectedImage
                 );
 
-            setFormData((previous) => ({
+            setForm((previous) => ({
                 ...previous,
                 image_url: result.image.url,
                 storage_path: result.image.path
@@ -219,7 +219,7 @@ const AdminPortfolio = () => {
                 error.message ||
                 "Unable to upload image."
             );
-        } finally {
+    } finally {
             setUploadingImage(false);
         }
     };
@@ -388,6 +388,51 @@ const AdminPortfolio = () => {
         }
     };
 
+    const handleDelete = async (item) => {
+        const confirmed = window.confirm(
+            `Delete "${item.title}"? This action cannot be undone.`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            setSaving(true);
+
+            const token = await getAdminToken();
+
+            await adminPortfolioApi.remove(
+                token,
+                item.id
+            );
+
+            alert("Portfolio item deleted successfully.");
+
+            await loadPortfolio();
+
+            if (editingItem?.id === item.id) {
+                setEditingItem(null);
+                setForm(emptyForm);
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Delete portfolio item error:",
+                error
+            );
+
+            alert(
+                error.response?.data?.message ||
+                error.message ||
+                "Unable to delete portfolio item."
+            );
+
+        } finally {
+            setSaving(false);
+        }
+    };
 
     // ====================================
     // TOGGLE PUBLISHED / FEATURED
@@ -986,6 +1031,14 @@ const AdminPortfolio = () => {
                                         {item.is_featured
                                             ? "Unfeature"
                                             : "Feature"}
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => handleDelete(item)}
+                                        disabled={saving}
+                                    >
+                                        Delete
                                     </button>
 
                                 </div>

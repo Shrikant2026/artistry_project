@@ -1060,58 +1060,167 @@ function AdminAvailability() {
             ================================== */}
 
             {selectedDate && (
-
                 <section className="admin-selected-date-panel">
 
-                    <div>
+                    {/* ==================================
+                        SELECTED DATE HEADER
+                    ================================== */}
 
-                        <span className="admin-eyebrow">
-                            SELECTED DATE
-                        </span>
+                    <div className="admin-selected-date-header">
 
-                        <h2>
-                            {new Date(
-                                `${selectedDate}T00:00:00`
-                            ).toLocaleDateString(
-                                "en-IN",
-                                {
-                                    weekday: "long",
-                                    day: "numeric",
-                                    month: "long",
-                                    year: "numeric"
-                                }
+                        <div>
+                            <span className="admin-eyebrow">
+                                SELECTED DATE
+                            </span>
+
+                            <h2>
+                                {new Date(
+                                    `${selectedDate}T00:00:00`
+                                ).toLocaleDateString(
+                                    "en-IN",
+                                    {
+                                        weekday: "long",
+                                        day: "numeric",
+                                        month: "long",
+                                        year: "numeric"
+                                    }
+                                )}
+                            </h2>
+                        </div>
+
+                        <div className="admin-selected-date-info">
+
+                            {selectedDateData?.blocked ? (
+                                <span className="selected-status blocked">
+                                    Entire date is blocked
+                                </span>
+                            ) : (
+                                <span className="selected-status available">
+                                    Date is available
+                                </span>
                             )}
-                        </h2>
+
+                        </div>
 
                     </div>
 
 
-                    <div className="admin-selected-date-info">
+                    {/* ==================================
+                        APPOINTMENT SLOTS
+                    ================================== */}
 
-                        {selectedDateData?.blocked ? (
+                    <div className="admin-selected-slots">
 
-                            <span className="selected-status blocked">
-                                Entire date is blocked
-                            </span>
+                        <div className="admin-selected-slots-header">
+                            <div>
+                                <span className="admin-section-eyebrow">
+                                    APPOINTMENT SLOTS
+                                </span>
+
+                                <h3>
+                                    Manage availability
+                                </h3>
+                            </div>
+                        </div>
+
+
+                        {selectedDateData?.slots?.length > 0 ? (
+
+                            <div className="admin-selected-slot-list">
+
+                                {selectedDateData.slots.map((slot) => (
+
+                                    <div
+                                        key={slot.id}
+                                        className={[
+                                            "admin-selected-slot",
+                                            slot.booked
+                                                ? "booked"
+                                                : slot.available
+                                                    ? "available"
+                                                    : "unavailable"
+                                        ].join(" ")}
+                                    >
+
+                                        <div className="admin-selected-slot-main">
+
+                                            <span className="admin-selected-slot-time">
+                                                {formatSlot(slot)}
+                                            </span>
+
+                                            <span
+                                                className={[
+                                                    "admin-selected-slot-status",
+                                                    slot.booked
+                                                        ? "booked"
+                                                        : slot.available
+                                                            ? "available"
+                                                            : "unavailable"
+                                                ].join(" ")}
+                                            >
+                                                {slot.booked
+                                                    ? "BOOKED"
+                                                    : slot.available
+                                                        ? "AVAILABLE"
+                                                        : "UNAVAILABLE"}
+                                            </span>
+
+                                        </div>
+
+
+                                        <div className="admin-selected-slot-action">
+
+                                            {slot.booked ? (
+
+                                                <span className="admin-slot-booked-note">
+                                                    Booking exists
+                                                </span>
+
+                                            ) : (
+
+                                                <button
+                                                    type="button"
+                                                    className={
+                                                        slot.available
+                                                            ? "admin-slot-control danger"
+                                                            : "admin-slot-control primary"
+                                                    }
+                                                    onClick={() =>
+                                                        handleSlotAvailability(
+                                                            slot.id,
+                                                            !slot.available
+                                                        )
+                                                    }
+                                                >
+                                                    {slot.available
+                                                        ? "Block Slot"
+                                                        : "Make Available"}
+                                                </button>
+
+                                            )}
+
+                                        </div>
+
+                                    </div>
+
+                                ))}
+
+                            </div>
 
                         ) : (
 
-                            <span className="selected-status available">
-                                Date is available
-                            </span>
+                            <div className="admin-no-selected-slots">
+                                No appointment slots configured for this date.
+                            </div>
 
                         )}
-
-
-                        <p>
-                            Select an action below.
-                            No changes have been made yet.
-                        </p>
 
                     </div>
 
 
-                    {/* ACTIONS WILL BE ADDED IN NEXT STEP */}
+                    {/* ==================================
+                        DATE ACTIONS
+                    ================================== */}
 
                     <div className="admin-date-actions">
 
@@ -1137,18 +1246,29 @@ function AdminAvailability() {
 
                         )}
 
-
                         <button
                             type="button"
                             className="admin-action-secondary"
                             onClick={() => {
                                 setShowManualBookingForm(true);
                             }}
+                            disabled={
+                                selectedDateData?.blocked ||
+                                !selectedDateData?.slots?.some(
+                                    slot => slot.available
+                                )
+                            }
                         >
                             Add Manual Booking
                         </button>
 
                     </div>
+
+
+                    {/* ==================================
+                        MANUAL BOOKING FORM
+                    ================================== */}
+
                     {showManualBookingForm && (
                         <form
                             className="admin-manual-booking-form"
@@ -1193,6 +1313,7 @@ function AdminAvailability() {
                                         onChange={handleManualBookingChange}
                                         required
                                     >
+
                                         <option value="">
                                             Select a slot
                                         </option>
@@ -1226,6 +1347,7 @@ function AdminAvailability() {
                                         onChange={handleManualBookingChange}
                                         required
                                     >
+
                                         <option value="">
                                             Select service
                                         </option>
@@ -1322,6 +1444,7 @@ function AdminAvailability() {
                                         value={manualBookingForm.status}
                                         onChange={handleManualBookingChange}
                                     >
+
                                         <option value="confirmed">
                                             Confirmed
                                         </option>
@@ -1329,6 +1452,7 @@ function AdminAvailability() {
                                         <option value="pending">
                                             Pending
                                         </option>
+
                                     </select>
 
                                 </div>
@@ -1342,11 +1466,10 @@ function AdminAvailability() {
 
                                     <select
                                         name="payment_status"
-                                        value={
-                                            manualBookingForm.payment_status
-                                        }
+                                        value={manualBookingForm.payment_status}
                                         onChange={handleManualBookingChange}
                                     >
+
                                         <option value="unpaid">
                                             Unpaid
                                         </option>
@@ -1358,6 +1481,7 @@ function AdminAvailability() {
                                         <option value="paid">
                                             Paid
                                         </option>
+
                                     </select>
 
                                 </div>
@@ -1406,8 +1530,8 @@ function AdminAvailability() {
 
                         </form>
                     )}
-                </section>
 
+                </section>
             )}
 
         </main>

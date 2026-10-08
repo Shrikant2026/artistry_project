@@ -1,0 +1,135 @@
+.reviews-section {
+    padding: 100px 7%;
+    background: #f8f1ed;
+}
+
+.reviews-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.reviews-heading {
+    max-width: 650px;
+    margin-bottom: 45px;
+}
+
+.reviews-eyebrow {
+    margin: 0 0 12px;
+    color: #9d4562;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.reviews-heading h2 {
+    margin: 0 0 15px;
+    color: #302629;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 42px;
+    font-weight: 400;
+}
+
+.reviews-heading > p:last-child {
+    margin: 0;
+    color: #76696d;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.review-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+    padding: 30px;
+    box-sizing: border-box;
+    background: #fffdfb;
+    border: 1px solid rgba(104, 55, 67, 0.12);
+    box-shadow: 0 12px 35px rgba(74, 38, 47, 0.05);
+}
+
+.review-rating {
+    margin-bottom: 20px;
+    color: #b45b76;
+    font-size: 15px;
+    letter-spacing: 3px;
+}
+
+.review-card blockquote {
+    margin: 0;
+    color: #4b3d42;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+.review-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 25px;
+}
+
+.review-author img,
+.review-avatar {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.review-author img {
+    object-fit: cover;
+}
+
+.review-avatar {
+    display: grid;
+    place-items: center;
+    background: #ead7dc;
+    color: #8e415b;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+}
+
+.review-author div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.review-author strong {
+    color: #302629;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.review-author span {
+    color: #96898d;
+    font-size: 12px;
+}
+
+@media (max-width: 900px) {
+    .reviews-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .reviews-section {
+        padding: 70px 20px;
+    }
+
+    .reviews-heading h2 {
+        font-size: 34px;
+    }
+
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}

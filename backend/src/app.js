@@ -10,8 +10,10 @@ dotenv.config();
 
 const bookingRoutes = require("./routes/bookingRoutes");
 const adminRoutes = require("./routes/adminRoutes");
-
-
+const storiesRoutes =
+    require("./routes/storiesRoutes");
+const reviewsRoutes =
+    require("./routes/reviewsRoutes");
 const app = express();
 
 /*
@@ -128,6 +130,16 @@ app.use(
 app.use(
     "/api/admin",
     adminRoutes
+);
+
+app.use(
+    "/api/stories",
+    storiesRoutes
+);
+
+app.use(
+    "/api/reviews",
+    reviewsRoutes
 );
 
 /*

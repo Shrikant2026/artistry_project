@@ -1,7 +1,7 @@
 const express = require("express");
 
-const portfolioController =
-    require("../controllers/portfolioController");
+const storiesController =
+    require("../controllers/storiesController");
 
 const adminAuth =
     require("../middleware/adminAuth");
@@ -13,53 +13,54 @@ const router = express.Router();
 
 
 // ====================================
-// PUBLIC
+// PUBLIC STORIES
 // ====================================
 
 router.get(
     "/",
-    portfolioController.getPortfolio
+    storiesController.getStories
 );
 
 router.get(
-    "/categories",
-    portfolioController.getPortfolioCategories
+    "/slug/:slug",
+    storiesController.getStoryBySlug
 );
 
 
 // ====================================
-// ADMIN
+// ADMIN STORIES
 // ====================================
-
-router.get(
-    "/admin",
-    adminAuth,
-    portfolioController.getAdminPortfolio
-);
-
-router.post(
-    "/admin",
-    adminAuth,
-    portfolioController.createPortfolioItem
-);
-
-router.patch(
-    "/admin/:id",
-    adminAuth,
-    portfolioController.updatePortfolioItem
-);
 
 router.post(
     "/admin/upload",
     adminAuth,
     uploadImage.single("image"),
-    portfolioController.uploadPortfolioImage
+    storiesController.uploadStoryCoverImage
+);
+
+router.get(
+    "/admin",
+    adminAuth,
+    storiesController.getAdminStories
+);
+
+router.post(
+    "/admin",
+    adminAuth,
+    storiesController.createStory
+);
+
+router.patch(
+    "/admin/:id",
+    adminAuth,
+    storiesController.updateStory
 );
 
 router.delete(
     "/admin/:id",
     adminAuth,
-    portfolioController.deletePortfolioItem
+    storiesController.deleteStory
 );
+
 
 module.exports = router;
