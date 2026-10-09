@@ -39,7 +39,7 @@ const AdminBookings = () => {
                     sessionData.session;
 
                 const response = await fetch(
-                    "http://localhost:5500/api/admin/bookings",
+                    `${import.meta.env.VITE_API_BASE_URL}/api/admin/bookings`,
                     {
                         method: "GET",
                         headers: {
@@ -106,7 +106,7 @@ const AdminBookings = () => {
                 }
 
                 const response = await fetch(
-                    `http://localhost:5500/api/admin/bookings/${bookingId}/status`,
+                    `${import.meta.env.VITE_API_BASE_URL}/api/admin/bookings/${bookingId}`,
                     {
                         method: "PATCH",
                         headers: {

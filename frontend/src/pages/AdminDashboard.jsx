@@ -39,7 +39,7 @@ const AdminDashboard = () => {
                 setUser(session.user);
 
                 const response = await fetch(
-                    "http://localhost:5500/api/admin/dashboard",
+                    `${import.meta.env.VITE_API_BASE_URL}/api/admin/dashboard`,
                     {
                         method: "GET",
                         headers: {
