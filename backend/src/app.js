@@ -30,9 +30,24 @@ app.use(helmet());
 |--------------------------------------------------------------------------
 */
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://artistry-project.vercel.app",
+    "https://artistry-project-40wxx04iv-apex-8c5f.vercel.app",
+];
+
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL || "http://localhost:5173",
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            }
+
+            return callback(new Error("Origin not allowed by CORS"));
+        },
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization", "apikey"],
+        optionsSuccessStatus: 204,
     })
 );
 
