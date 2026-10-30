@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { APP_CONFIG } from "../config/app";
 import { supabase } from "../config/supabase";
 
 import "./AdminDashboard.css";
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
                 setUser(session.user);
 
                 const response = await fetch(
-                    `https://artistry-project.onrender.com/api/admin/dashboard`,
+                    `${APP_CONFIG.API_BASE_URL}/api/admin/dashboard`,
                     {
                         method: "GET",
                         headers: {
