@@ -30,26 +30,49 @@ app.use(helmet());
 |--------------------------------------------------------------------------
 */
 
+
+
+
 const allowedOrigins = [
     "http://localhost:5173",
     "https://artistry-project.vercel.app",
-    "https://artistry-project-40wxx04iv-apex-8c5f.vercel.app",
 ];
+
+const isVercelPreview = (origin) =>
+    /^https:\/\/artistry-project-[a-z0-9-]+\.vercel\.app$/i.test(origin);
 
 app.use(
     cors({
         origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin)) {
+            if (
+                !origin ||
+                allowedOrigins.includes(origin) ||
+                isVercelPreview(origin)
+            ) {
                 return callback(null, true);
             }
 
-            return callback(new Error("Origin not allowed by CORS"));
+            return callback(
+                new Error("Origin not allowed by CORS")
+            );
         },
-        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization", "apikey"],
+        methods: [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE",
+            "OPTIONS",
+        ],
+        allowedHeaders: [
+            "Content-Type",
+            "Authorization",
+            "apikey",
+        ],
         optionsSuccessStatus: 204,
     })
 );
+
 
 /*
 |--------------------------------------------------------------------------
