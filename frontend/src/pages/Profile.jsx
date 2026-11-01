@@ -21,17 +21,15 @@ function Profile() {
                     }}
                 >
                     <p className="page-description">
-                        Makeup is more than transformation.
-                        It is about bringing forward the
-                        confidence, personality and beauty
-                        that already exists within you.
+                        Makeup has always been more than just a transformation to me. It is an art of enhancing natural beauty, expressing individuality and bringing out the confidence that already exists within.
                     </p>
 
                     <p className="page-description">
-                        Rupanjali’s Makeup Artistry creates
-                        personalised beauty experiences for
-                        brides, celebrations, editorial work
-                        and special occasions.
+                        Through Rupanjali’s Makeup Artistry, I aim to create beautiful, personalised makeup experiences. From timeless bridal looks to elegant makeup for celebrations and special occasions, my approach is rooted in artistry, attention to detail and an understanding of what makes every individual unique.
+                    </p>
+
+                    <p className="page-description">
+                        Creating beauty that feels as unique as you are.
                     </p>
 
                     <Link

@@ -842,24 +842,24 @@
         min-width: auto;
     }
 
+    /* Mobile calendar: use the admin calendar's readable two-column cards. */
     .calendar-weekdays {
-        gap: 4px;
-    }
-
-    .calendar-weekdays span {
-        padding-left: 3px;
-        padding-right: 3px;
-
-        font-size: 8px;
+        display: none;
     }
 
     .calendar-grid {
-        gap: 4px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .calendar-empty {
+        display: none;
     }
 
     .calendar-date-card {
-        min-height: 105px;
-        padding: 7px;
+        min-width: 0;
+        min-height: 0;
+        padding: 12px;
     }
 
     .date-card-top {
@@ -867,19 +867,32 @@
     }
 
     .date-card-top strong {
-        font-size: 19px;
+        font-size: 23px;
     }
 
     .date-card-top span {
-        display: none;
+        display: inline;
+        font-size: 9px;
     }
 
-    .mini-slot span {
-        font-size: 7px;
+    .date-card-slots {
+        gap: 7px;
+    }
+
+    .mini-slot {
+        display: block;
+        padding: 8px 0;
+    }
+
+    .mini-slot span,
+    .mini-slot em {
+        display: block;
+        font-size: 10px;
     }
 
     .mini-slot em {
-        font-size: 6px;
+        margin-top: 3px;
+        font-size: 9px;
     }
 
     .booking-details-heading,
@@ -898,4 +911,9 @@
     .booking-success {
         padding: 35px 20px;
     }
+}
+
+/* Keep the selected appointment panel visible below sticky site navigation. */
+.booking-details {
+    scroll-margin-top: 110px;
 }

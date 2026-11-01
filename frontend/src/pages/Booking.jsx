@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { availabilityApi, servicesApi, bookingApi } from "../services/api";
 import "./Booking.css";
 
@@ -105,6 +105,8 @@ function Booking() {
 
     const [selectedSlot, setSelectedSlot] =
         useState(null);
+
+    const bookingDetailsRef = useRef(null);
 
     const [loading, setLoading] =
         useState(true);
@@ -335,6 +337,14 @@ function Booking() {
         setSelectedSlot(
             firstAvailableSlot || null
         );
+
+        // Bring the newly revealed appointment form into view.
+        window.requestAnimationFrame(() => {
+            bookingDetailsRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        });
     };
 
 
@@ -360,6 +370,14 @@ function Booking() {
         setSelectedDate(dateKey);
         setSelectedSlot(slot);
         setSuccess(null);
+
+        // Make the selected appointment details visible immediately.
+        window.requestAnimationFrame(() => {
+            bookingDetailsRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        });
     };
 
 
@@ -894,7 +912,7 @@ function Booking() {
             {selectedDate &&
                 selectedSlot && (
 
-                    <section className="booking-details">
+                    <section className="booking-details" ref={bookingDetailsRef}>
 
                         <div className="booking-details-heading">
 
