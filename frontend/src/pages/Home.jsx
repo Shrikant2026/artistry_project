@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import CalendarCTA from "../components/CalendarCTA/CalendarCTA";
 import Reviews from "../components/Reviews/Reviews";
 import "./Home.css";
+import bridalHero from "../assets/bridal-hero.jpg";
 
 function Home() {
     return (
@@ -68,22 +69,24 @@ function Home() {
 
                         <div className="portrait-glass">
 
-                            <div className="portrait-placeholder">
-                                <span>
-                                    R
-                                </span>
-                            </div>
+                            <img
+                                src={bridalHero}
+                                alt="Traditional bridal makeup by Rupanjali's Makeup Artistry"
+                                className="portrait-image"
+                            />
 
                             <div className="hero-stat-card">
+                                <span className="hero-card-eyebrow">
+                                    BRIDAL BEAUTY
+                                </span>
 
                                 <strong>
-                                    500+
+                                    Every detail
                                 </strong>
 
                                 <span>
-                                    Happy Clients
+                                    Crafted with care
                                 </span>
-
                             </div>
 
                         </div>
