@@ -310,8 +310,144 @@ const createManualBooking = async ({
     return booking;
 };
 
+const getPaginatedBookings = async ({
+    page = 1,
+    limit = 10,
+    search = "",
+    status = "",
+    service_id = "",
+    start_date = "",
+    end_date = "",
+    sort = "event_asc"
+}) => {
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
+
+    let query = supabase
+        .from("bookings")
+        .select(`
+            id,
+            customer_name,
+            email,
+            phone,
+            event_type,
+            event_date,
+            start_time,
+            end_time,
+            location,
+            message,
+            status,
+            payment_status,
+            payment_reference,
+            created_at,
+            updated_at,
+            service_id,
+            services (
+                id,
+                name,
+                slug
+            )
+        `, {
+            count: "exact"
+        });
+
+    // SEARCH
+    const searchTerm = search.trim().replace(/[(),]/g, "");
+
+    if (searchTerm) {
+        const conditions = [
+            `customer_name.ilike.%${searchTerm}%`,
+            `email.ilike.%${searchTerm}%`,
+            `phone.ilike.%${searchTerm}%`
+        ];
+
+        // UUID booking IDs can be searched exactly.
+        const isUUID =
+            /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+                .test(searchTerm);
+
+        if (isUUID) {
+            conditions.push(`id.eq.${searchTerm}`);
+        }
+
+        query = query.or(conditions.join(","));
+    }
+
+    // STATUS FILTER
+    if (status) {
+        query = query.eq("status", status);
+    }
+
+    // SERVICE FILTER
+    if (service_id) {
+        query = query.eq("service_id", service_id);
+    }
+
+    // EVENT DATE FILTER
+    if (start_date) {
+        query = query.gte("event_date", start_date);
+    }
+
+    if (end_date) {
+        query = query.lte("event_date", end_date);
+    }
+
+    // SORTING
+    switch (sort) {
+        case "event_desc":
+            query = query
+                .order("event_date", { ascending: false })
+                .order("start_time", { ascending: false });
+            break;
+
+        case "created_desc":
+            query = query
+                .order("created_at", { ascending: false });
+            break;
+
+        case "created_asc":
+            query = query
+                .order("created_at", { ascending: true });
+            break;
+
+        case "event_asc":
+        default:
+            query = query
+                .order("event_date", { ascending: true })
+                .order("start_time", { ascending: true });
+            break;
+    }
+
+    // STABLE SECONDARY ORDER
+    query = query.order("id", { ascending: true });
+
+    // PAGINATION
+    const {
+        data,
+        error,
+        count
+    } = await query.range(from, to);
+
+    if (error) {
+        throw error;
+    }
+
+    const total = count || 0;
+
+    return {
+        bookings: data || [],
+        pagination: {
+            page,
+            limit,
+            total,
+            totalPages: Math.ceil(total / limit)
+        }
+    };
+};
+
 module.exports = {
     getBookings,
+    getPaginatedBookings,
     updateBookingStatus,
     createManualBooking
 };

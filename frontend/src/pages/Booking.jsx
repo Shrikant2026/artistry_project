@@ -142,24 +142,32 @@ function Booking() {
     useEffect(() => {
         const loadServices = async () => {
             try {
-                const response =
-                    await servicesApi.get();
+                const response = await servicesApi.get();
+                const serviceList = response.services || [];
 
-                if (response.success) {
-                    setServices(
-                        response.services || []
+                setServices(serviceList);
+
+                if (selectedServiceSlug) {
+                    const selectedService = serviceList.find(
+                        service => service.slug === selectedServiceSlug
                     );
+
+                    if (selectedService) {
+                        setForm(previous => ({
+                            ...previous,
+                            service_id: selectedService.id,
+                            event_type: selectedService.name
+                        }));
+                    }
                 }
             } catch (err) {
-                console.error(
-                    "Failed to load services:",
-                    err
-                );
+                console.error("Failed to load services:", err);
+                setError("Unable to load makeup services. Please refresh.");
             }
         };
 
         loadServices();
-    }, []);
+    }, [selectedServiceSlug]);
 
     // ==========================================
     // LOAD AVAILABILITY
@@ -1035,19 +1043,29 @@ function Booking() {
                                     </span>
 
                                     <select
-                                        name="event_type"
-                                        value={form.event_type}
-                                        onChange={handleChange}
+                                        name="service_id"
+                                        value={form.service_id}
+                                        onChange={(event) => {
+                                            const service = services.find(
+                                                item => item.id === event.target.value
+                                            );
+
+                                            setForm(previous => ({
+                                                ...previous,
+                                                service_id: service?.id || "",
+                                                event_type: service?.name || ""
+                                            }));
+                                        }}
                                         required
                                     >
                                         <option value="">
                                             Select service
                                         </option>
 
-                                        {services.map((service) => (
+                                        {services.map(service => (
                                             <option
                                                 key={service.id}
-                                                value={service.name}
+                                                value={service.id}
                                             >
                                                 {service.name}
                                             </option>

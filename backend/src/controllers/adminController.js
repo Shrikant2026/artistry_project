@@ -103,17 +103,137 @@ const getAdminDashboard = async (req, res) => {
     }
 };
 
-const getAdminBookings = async (
-    req,
-    res
-) => {
+const getAdminBookings = async (req, res) => {
     try {
-        const bookings =
-            await adminBookingService.getBookings();
+        // 1. Read query parameters
+        const {
+            page = "1",
+            limit = "10",
+            search = "",
+            status = "",
+            service_id = "",
+            start_date = "",
+            end_date = "",
+            sort = "event_asc"
+        } = req.query;
 
-        return res.json({
+        // 2. Parse pagination BEFORE using it
+        const parsedPage = Number(page);
+        const parsedLimit = Number(limit);
+
+        // 3. Validate pagination
+        if (
+            !Number.isInteger(parsedPage) ||
+            parsedPage < 1
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid page number."
+            });
+        }
+
+        if (
+            ![10, 20, 50].includes(parsedLimit)
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Limit must be 10, 20 or 50."
+            });
+        }
+
+        // 4. Validate status
+        const allowedStatuses = [
+            "pending",
+            "confirmed",
+            "rejected",
+            "cancelled",
+            "completed"
+        ];
+
+        if (
+            status &&
+            !allowedStatuses.includes(status)
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid booking status."
+            });
+        }
+
+        // 5. Validate sorting
+        const allowedSorts = [
+            "event_asc",
+            "event_desc",
+            "created_desc",
+            "created_asc"
+        ];
+
+        if (!allowedSorts.includes(sort)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid sorting option."
+            });
+        }
+
+        // 6. Validate dates
+        const validDate = (date) => {
+            if (!date) return true;
+
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+                return false;
+            }
+
+            const parsed = new Date(`${date}T00:00:00.000Z`);
+
+            return (
+                !Number.isNaN(parsed.getTime()) &&
+                parsed.toISOString().slice(0, 10) === date
+            );
+        };
+
+        if (
+            !validDate(start_date) ||
+            !validDate(end_date)
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid date filter."
+            });
+        }
+
+        if (
+            start_date &&
+            end_date &&
+            start_date > end_date
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Start date cannot be after end date."
+            });
+        }
+
+        // 7. Fetch paginated bookings
+        console.log("PAGINATION CONTROLLER ACTIVE", {
+            page: parsedPage,
+            limit: parsedLimit
+        });
+
+        const result =
+            await adminBookingService.getPaginatedBookings({
+                page: parsedPage,
+                limit: parsedLimit,
+                search,
+                status,
+                service_id,
+                start_date,
+                end_date,
+                sort
+            });
+
+        // 8. Return response
+        return res.status(200).json({
             success: true,
-            bookings
+            ...result
         });
 
     } catch (error) {
@@ -122,10 +242,9 @@ const getAdminBookings = async (
             error
         );
 
-        return res.status(500).json({
+        return res.status(error.statusCode || 500).json({
             success: false,
-            message:
-                "Unable to load bookings."
+            message: error.message || "Unable to load bookings."
         });
     }
 };
