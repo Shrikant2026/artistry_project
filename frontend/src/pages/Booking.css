@@ -917,3 +917,83 @@
 .booking-details {
     scroll-margin-top: 110px;
 }
+
+/* ==========================================
+   SOFT GRADIENT DATE CARDS
+========================================== */
+
+/* Available dates */
+.calendar-date-card.available {
+    background: linear-gradient(
+        145deg,
+        #fffdfb 0%,
+        #fff8f5 48%,
+        #f8eaed 100%
+    );
+
+    border-color: rgba(190, 139, 148, 0.28);
+
+    transition:
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.3s ease;
+}
+
+/* Available date hover */
+.calendar-date-card.available:hover {
+    background: linear-gradient(
+        145deg,
+        #fff8f5 0%,
+        #f9e8eb 100%
+    );
+
+    border-color: #c98b96;
+
+    box-shadow:
+        0 12px 30px rgba(153, 91, 107, 0.12);
+}
+
+/* Selected date */
+.calendar-date-card.selected {
+    background: linear-gradient(
+        135deg,
+        #fcebed 0%,
+        #f5dfe3 55%,
+        #eed4da 100%
+    );
+
+    border-color: #bd7a89;
+
+    box-shadow:
+        0 10px 30px rgba(153, 91, 107, 0.15);
+}
+
+/* Unavailable dates */
+.calendar-date-card.unavailable {
+    background: linear-gradient(
+        145deg,
+        #faf8f6 0%,
+        #f3eeeb 100%
+    );
+
+    border-color: #e9dfdc;
+}
+
+/* Admin-blocked dates */
+.calendar-date-card.blocked {
+    background: linear-gradient(
+        145deg,
+        #f6eeee 0%,
+        #eee1e2 100%
+    );
+}
+
+/* Past dates */
+.calendar-date-card.past {
+    background: linear-gradient(
+        145deg,
+        #f6f3f0 0%,
+        #eee9e5 100%
+    );
+}
