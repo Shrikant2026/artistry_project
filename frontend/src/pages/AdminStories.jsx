@@ -17,7 +17,8 @@ const emptyForm = {
     category: "",
     author_name: "",
     status: "draft",
-    published_at: ""
+    published_at: "",
+    display_order: 0
 };
 
 
@@ -227,7 +228,8 @@ function AdminStories() {
                 story.published_at
                     ? story.published_at
                         .slice(0, 16)
-                    : ""
+                    : "",
+            display_order: story.display_order ?? 0
         });
 
         setError("");
@@ -304,7 +306,9 @@ function AdminStories() {
                                 ).toISOString()
                                 : new Date().toISOString()
                         )
-                        : null
+                        : null,
+
+                display_order: Number(form.display_order || 0)
             };
 
 
@@ -608,6 +612,26 @@ function AdminStories() {
                             />
                         </div>
 
+                        <div className="admin-stories-field">
+                            <label>
+                                Display Order
+                            </label>
+
+                            <input
+                                type="number"
+                                name="display_order"
+                                min="0"
+                                step="1"
+                                value={form.display_order}
+                                onChange={handleChange}
+                                placeholder="1"
+                            />
+
+                            <small>
+                                Lower numbers appear first on the website.
+                            </small>
+                        </div>
+
 
                         <div className="admin-stories-field admin-stories-field-full">
 
@@ -797,6 +821,10 @@ function AdminStories() {
 
                                     <span>
                                         {story.status}
+                                    </span>
+
+                                    <span>
+                                        Display Order: {story.display_order ?? 0}
                                     </span>
 
                                     {story.author_name && (
