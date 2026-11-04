@@ -241,6 +241,18 @@ const AdminDashboard = () => {
                     </p>
                 </article>
 
+                <article
+                    onClick={() =>
+                        navigate("/admin/about")
+                    }
+                >
+                    <span>07</span>
+                    <h2>About Page</h2>
+                    <p>
+                        Edit Rupanjali's profile, biography and artist photograph.
+                    </p>
+                </article>
+
             </section>
 
             <section className="admin-dashboard-upcoming">

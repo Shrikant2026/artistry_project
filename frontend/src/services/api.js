@@ -565,4 +565,30 @@ export const adminReviewsApi = {
     }
 };
 
+export const aboutApi = {
+    getPublic: () => api.get("/api/about"),
+
+    getAdmin: (token) =>
+        api.get("/api/about/admin", {
+            headers: { Authorization: `Bearer ${token}` }
+        }),
+
+    update: (token, data) =>
+        api.patch("/api/about/admin", data, {
+            headers: { Authorization: `Bearer ${token}` }
+        }),
+
+    uploadImage: (token, file) => {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        return api.post("/api/about/admin/upload", formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": undefined
+            }
+        });
+    }
+};
+
 export default api;

@@ -10,10 +10,9 @@ dotenv.config();
 
 const bookingRoutes = require("./routes/bookingRoutes");
 const adminRoutes = require("./routes/adminRoutes");
-const storiesRoutes =
-    require("./routes/storiesRoutes");
-const reviewsRoutes =
-    require("./routes/reviewsRoutes");
+const storiesRoutes = require("./routes/storiesRoutes");
+const reviewsRoutes = require("./routes/reviewsRoutes");
+const aboutRoutes = require("./routes/aboutRoutes");
 const app = express();
 
 /*
@@ -86,7 +85,7 @@ app.use(
     })
 );
 
-/*
+/*AdminDashboard.jsx
 |--------------------------------------------------------------------------
 | Rate Limiting
 |--------------------------------------------------------------------------
@@ -179,6 +178,8 @@ app.use(
     "/api/reviews",
     reviewsRoutes
 );
+
+app.use("/api/about", aboutRoutes);
 
 /*
 |--------------------------------------------------------------------------

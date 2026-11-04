@@ -24,6 +24,7 @@ import AdminPortfolio from "./pages/AdminPortfolio";
 import AdminStories from "./pages/AdminStories";
 import Service from "./pages/Service";
 import AdminReviews from "./pages/AdminReviews";
+import AdminAbout from "./pages/AdminAbout";
 
 function App() {
     return (
@@ -132,6 +133,11 @@ function App() {
                 <Route
                     path="/admin/reviews"
                     element={<AdminReviews />}
+                />
+
+                <Route
+                    path="/admin/about"
+                    element={<AdminAbout />}
                 />
 
             </Routes>

@@ -1,0 +1,272 @@
+.admin-about-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+    color: #392b28;
+}
+
+.admin-about-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.admin-about-eyebrow {
+    color: #a77b78;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.admin-about-header h1 {
+    margin: 8px 0;
+    font-family: Georgia, serif;
+    font-size: 34px;
+    font-weight: 500;
+}
+
+.admin-about-header p,
+.admin-about-section-heading > p {
+    color: #887875;
+    font-size: 14px;
+}
+
+.admin-about-back {
+    padding: 11px 18px;
+    border: 1px solid #e8d8d3;
+    border-radius: 12px;
+    background: #fffaf8;
+    color: #604642;
+    cursor: pointer;
+}
+
+.admin-about-card {
+    padding: 28px;
+    margin-bottom: 22px;
+    border: 1px solid #eee1dc;
+    border-radius: 20px;
+    background: rgba(255, 252, 250, 0.88);
+    box-shadow: 0 8px 30px rgba(75, 48, 40, 0.035);
+}
+
+.admin-about-section-heading {
+    margin-bottom: 24px;
+}
+
+.admin-about-section-heading > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-about-section-heading > div span {
+    color: #b68c84;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.admin-about-section-heading h2 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.admin-about-section-heading > p {
+    margin: 9px 0 0 27px;
+}
+
+.admin-about-photo-area {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.admin-about-photo {
+    width: 170px;
+    height: 190px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #f2e6e1;
+}
+
+.admin-about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-about-photo-placeholder {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #9a7770;
+}
+
+.admin-about-photo-placeholder span {
+    font-size: 32px;
+}
+
+.admin-about-photo-placeholder p {
+    font-size: 12px;
+}
+
+.admin-about-photo-controls p {
+    color: #927e78;
+    font-size: 12px;
+}
+
+.admin-about-upload-label,
+.admin-about-upload-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 17px;
+    border: 0;
+    border-radius: 10px;
+    background: #76534d;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.admin-about-upload-label input {
+    display: none;
+}
+
+.admin-about-upload-button {
+    margin-top: 8px;
+    background: #a87970;
+}
+
+.admin-about-fields {
+    display: grid;
+    gap: 20px;
+}
+
+.admin-about-fields.two-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.admin-about-fields label {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    color: #604b46;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.admin-about-fields input,
+.admin-about-fields textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #e8dcd6;
+    border-radius: 11px;
+    outline: none;
+    background: #fffdfc;
+    color: #392b28;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.admin-about-fields input:focus,
+.admin-about-fields textarea:focus {
+    border-color: #b68c84;
+    box-shadow: 0 0 0 3px rgba(182, 140, 132, 0.12);
+}
+
+.admin-about-fields .full-width {
+    grid-column: 1 / -1;
+}
+
+.admin-about-save-area {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 0 30px;
+}
+
+.admin-about-save-button {
+    padding: 14px 26px;
+    border: none;
+    border-radius: 12px;
+    background: #76534d;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.admin-about-save-button:hover {
+    background: #5c3f3a;
+}
+
+.admin-about-save-button:disabled,
+.admin-about-upload-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-about-message {
+    padding: 13px 16px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.admin-about-message.success {
+    background: #edf5ed;
+    color: #416b48;
+}
+
+.admin-about-message.error {
+    background: #f9ece9;
+    color: #a34e43;
+}
+
+.admin-about-loading {
+    padding: 60px 20px;
+    text-align: center;
+    color: #76534d;
+}
+
+@media (max-width: 700px) {
+    .admin-about-page {
+        padding: 20px 14px;
+    }
+
+    .admin-about-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-about-card {
+        padding: 20px 16px;
+    }
+
+    .admin-about-fields.two-columns {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-about-fields .full-width {
+        grid-column: auto;
+    }
+
+    .admin-about-photo-area {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-about-save-button {
+        width: 100%;
+    }
+}
