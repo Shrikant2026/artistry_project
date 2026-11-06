@@ -18,7 +18,7 @@ function Navbar() {
                     onClick={close}
                 >
                     <img
-                        src="src/assets/rupanjali-logo.jpg"
+                        src="assets/rupanjali-logo.jpg"
                         alt="Rupanjali's Makeup Artistry"
                         className="brand-logo"
                     />
