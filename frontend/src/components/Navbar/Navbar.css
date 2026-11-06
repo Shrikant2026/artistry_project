@@ -193,3 +193,18 @@
         text-align: center;
     }
 }
+
+.brand-logo {
+    display: block;
+    width: 90px;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}

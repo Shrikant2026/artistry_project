@@ -17,13 +17,16 @@ function Navbar() {
                     className="brand"
                     onClick={close}
                 >
-                    <span>Rupanjali’s</span>
-                    <small>MAKEUP ARTISTRY</small>
+                    <img
+                        src="src/assets/rupanjali-logo.jpg"
+                        alt="Rupanjali's Makeup Artistry"
+                        className="brand-logo"
+                    />
                 </Link>
 
                 <button
                     className="mobile-menu-button"
-                    onClick={() => setOpen(!open)}
+                    onClick={() => setOpen(!open)}  
                 >
                     ☰
                 </button>
@@ -32,7 +35,7 @@ function Navbar() {
                     className={`nav-menu ${
                         open ? "nav-open" : ""
                     }`}
-                >
+                > 
                     <NavLink to="/" onClick={close}>
                         Home
                     </NavLink>
