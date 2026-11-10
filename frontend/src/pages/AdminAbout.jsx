@@ -12,7 +12,9 @@ const emptyAbout = {
     biography: "",
     philosophy: "",
     closing_message: "",
-    artist_image_url: ""
+    artist_image_url: "",
+    brand_logo_url: "",
+    brand_logo_path: ""
 };
 
 function AdminAbout() {
@@ -27,6 +29,9 @@ function AdminAbout() {
     const [preview, setPreview] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [selectedLogo, setSelectedLogo] = useState(null);
+    const [logoPreview, setLogoPreview] = useState("");
+    const [uploadingLogo, setUploadingLogo] = useState(false);
 
     useEffect(() => {
         loadAbout();
@@ -35,10 +40,23 @@ function AdminAbout() {
             if (preview.startsWith("blob:")) {
                 URL.revokeObjectURL(preview);
             }
+
+            if (logoPreview.startsWith("blob:")) {
+                URL.revokeObjectURL(logoPreview);
+            }
+
         };
         // Load once when the page opens.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        return () => {
+            if (logoPreview.startsWith("blob:")) {
+                URL.revokeObjectURL(logoPreview);
+            }
+        };
+    }, [logoPreview]);
 
     const loadAbout = async () => {
         try {
@@ -101,6 +119,31 @@ function AdminAbout() {
         setMessage("");
     };
 
+    const handleLogoChange = (event) => {
+        const file = event.target.files?.[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            setError("Please select a valid logo image.");
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            setError("Logo size must be less than 5 MB.");
+            return;
+        }
+
+        if (logoPreview.startsWith("blob:")) {
+            URL.revokeObjectURL(logoPreview);
+        }
+
+        setSelectedLogo(file);
+        setLogoPreview(URL.createObjectURL(file));
+        setError("");
+        setMessage("");
+    };
+
     const handleUpload = async () => {
         if (!selectedImage) return;
 
@@ -127,6 +170,46 @@ function AdminAbout() {
             );
         } finally {
             setUploading(false);
+        }
+    };
+
+    const handleLogoUpload = async () => {
+        if (!selectedLogo) return;
+
+        setUploadingLogo(true);
+        setError("");
+        setMessage("");
+
+        try {
+            const response = await aboutApi.uploadBrandLogo(
+                token,
+                selectedLogo
+            );
+
+            const updatedAbout = response.data.about;
+
+            setForm((previous) => ({
+                ...previous,
+                brand_logo_url: updatedAbout.brand_logo_url,
+                brand_logo_path: updatedAbout.brand_logo_path
+            }));
+
+            if (logoPreview.startsWith("blob:")) {
+                URL.revokeObjectURL(logoPreview);
+            }
+
+            setSelectedLogo(null);
+            setLogoPreview("");
+
+            setMessage("Brand logo uploaded successfully.");
+        } catch (err) {
+            console.error("Brand logo upload error:", err);
+
+            setError(
+                err.response?.data?.message || "Logo upload failed."
+            );
+        } finally {
+            setUploadingLogo(false);
         }
     };
 
@@ -197,6 +280,63 @@ function AdminAbout() {
             )}
 
             <form onSubmit={handleSave}>
+
+                <section className="admin-about-card">
+                    <div className="admin-about-section-heading">
+                        <div>
+                            <span>01</span>
+                            <h2>Website Brand Logo</h2>
+                        </div>
+
+                        <p>
+                            Manage the logo displayed in the public website navigation.
+                        </p>
+                    </div>
+
+                    <div className="admin-about-photo-area">
+                        <div className="admin-about-photo">
+                            {(logoPreview || form.brand_logo_url) ? (
+                                <img
+                                    src={logoPreview || form.brand_logo_url}
+                                    alt="Website brand logo preview"
+                                />
+                            ) : (
+                                <div className="admin-about-photo-placeholder">
+                                    <span>+</span>
+                                    <p>No brand logo uploaded</p>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="admin-about-photo-controls">
+                            <label className="admin-about-upload-label">
+                                Choose brand logo
+
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleLogoChange}
+                                />
+                            </label>
+
+                            <p>PNG, JPG or WebP. Maximum size: 5 MB.</p>
+
+                            {selectedLogo && (
+                                <button
+                                    type="button"
+                                    className="admin-about-upload-button"
+                                    onClick={handleLogoUpload}
+                                    disabled={uploadingLogo}
+                                >
+                                    {uploadingLogo
+                                        ? "Uploading..."
+                                        : "Upload brand logo"}
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </section>
+
                 <section className="admin-about-card">
                     <div className="admin-about-section-heading">
                         <div>
@@ -343,7 +483,7 @@ function AdminAbout() {
                     <button
                         type="submit"
                         className="admin-about-save-button"
-                        disabled={saving || uploading}
+                        disabled={saving || uploading || uploadingLogo}
                     >
                         {saving ? "Saving changes..." : "Save About Page"}
                     </button>

@@ -138,8 +138,35 @@ const uploadAboutImage = async (file, filePath) => {
     };
 };
 
+const uploadBrandLogo = async (file, filePath) => {
+    if (!file) {
+        const error = new Error("Brand logo is required.");
+        error.statusCode = 400;
+        throw error;
+    }
+
+    const { data, error } = await supabase.storage
+        .from("portfolio-images")
+        .upload(filePath, file.buffer, {
+            contentType: file.mimetype,
+            upsert: true
+        });
+
+    if (error) throw error;
+
+    const { data: publicUrlData } = supabase.storage
+        .from("portfolio-images")
+        .getPublicUrl(filePath);
+
+    return {
+        path: data.path,
+        publicUrl: publicUrlData.publicUrl
+    };
+};
+
 module.exports = {
     uploadPortfolioImage,
     uploadStoryCoverImage,
-    uploadAboutImage
+    uploadAboutImage,
+    uploadBrandLogo
 };

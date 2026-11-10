@@ -20,4 +20,11 @@ router.post(
     aboutController.uploadAboutPhoto
 );
 
+router.post(
+    "/admin/upload-logo",
+    adminAuth,
+    uploadImage.single("image"),
+    aboutController.uploadBrandLogoImage
+);
+
 module.exports = router;

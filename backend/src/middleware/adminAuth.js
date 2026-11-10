@@ -30,10 +30,22 @@ const adminAuth = async (req, res, next) => {
             error: userError
         } = await supabase.auth.getUser(token);
 
+        console.log("Token validation:", {
+            success: !userError && !!userData?.user,
+            error: userError?.message || null,
+            status: userError?.status || null
+        });
+
         if (
             userError ||
             !userData?.user
         ) {
+            console.error("Supabase token validation failed:", {
+                message: userError?.message,
+                status: userError?.status,
+                code: userError?.code
+            });
+
             return res.status(401).json({
                 success: false,
                 message: "Invalid or expired session."

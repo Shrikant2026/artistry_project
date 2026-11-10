@@ -588,6 +588,18 @@ export const aboutApi = {
                 "Content-Type": undefined
             }
         });
+    },
+
+    uploadBrandLogo: (token, file) => {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        return api.post("/api/about/admin/upload-logo", formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": undefined
+            }
+        });
     }
 };
 
