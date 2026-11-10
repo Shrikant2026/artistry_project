@@ -141,57 +141,101 @@
     font-size: 20px;
 }
 
-@media(max-width:800px) {
+
+@media (max-width: 800px) {
+
+    .glass-navbar {
+        top: 12px;
+        width: calc(100% - 28px);
+        border-radius: 24px;
+    }
+
+    .navbar-inner {
+        min-height: 78px;
+        padding: 7px 14px 7px 18px;
+        gap: 12px;
+    }
+
+    .brand-logo {
+        width: 145px;
+        max-height: 65px;
+        object-fit: contain;
+    }
 
     .mobile-menu-button {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 46px;
+        height: 46px;
+        font-size: 21px;
+        cursor: pointer;
     }
 
     .nav-menu {
         position: absolute;
-
-        top: 82px;
+        top: calc(100% + 10px);
         left: 0;
-
         width: 100%;
 
-        padding: 20px;
-
-        border-radius: 25px;
+        padding: 14px;
+        border-radius: 22px;
 
         flex-direction: column;
-
         align-items: stretch;
+        gap: 5px;
 
-        background:
-            rgba(255,255,255,.75);
+        background: rgba(255, 250, 248, 0.94);
+        border: 1px solid rgba(255, 255, 255, 0.8);
 
-        backdrop-filter: blur(30px);
+        box-shadow: 0 15px 40px rgba(91, 24, 47, 0.13);
+
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
 
         opacity: 0;
-
+        visibility: hidden;
         pointer-events: none;
 
-        transform: translateY(-10px);
-
-        transition: .25s;
+        transform: translateY(-8px);
+        transition: opacity .25s ease,
+                    transform .25s ease,
+                    visibility .25s ease;
     }
 
     .nav-menu.nav-open {
         opacity: 1;
-
+        visibility: visible;
         pointer-events: auto;
-
         transform: translateY(0);
     }
 
     .nav-menu > a {
-        padding: 12px;
+        padding: 13px 15px;
+        border-radius: 12px;
+    }
+
+    .nav-menu > a:not(.nav-book)::after {
+        display: none;
+    }
+
+    .nav-menu > a:hover {
+        background: rgba(190, 120, 135, 0.10);
     }
 
     .nav-book {
         text-align: center;
+        margin-top: 5px;
     }
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
 }
 
 .brand-logo {
@@ -201,10 +245,4 @@
     max-width: 100%;
     object-fit: contain;
     border-radius: 5px;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
 }

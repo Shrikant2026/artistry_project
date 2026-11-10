@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,9 +7,7 @@ import { adminReviewsApi } from "../services/api";
 
 import "./AdminReviews.css";
 
-
 const AdminReviews = () => {
-
     const navigate = useNavigate();
 
     const [reviews, setReviews] = useState([]);
@@ -16,6 +15,8 @@ const AdminReviews = () => {
     const [error, setError] = useState("");
 
     const [saving, setSaving] = useState(false);
+    const [editingReviewId, setEditingReviewId] = useState(null);
+    const [deletingReviewId, setDeletingReviewId] = useState(null);
 
     const [form, setForm] = useState({
         customerName: "",
@@ -26,8 +27,11 @@ const AdminReviews = () => {
         isPublished: false
     });
 
-    const getToken = async () => {
+    // ====================================
+    // GET ADMIN TOKEN
+    // ====================================
 
+    const getToken = async () => {
         const {
             data,
             error
@@ -41,52 +45,51 @@ const AdminReviews = () => {
                 replace: true
             });
 
-            throw new Error(
-                "Admin session expired."
-            );
+            throw new Error("Admin session expired.");
         }
 
         return data.session.access_token;
     };
 
 
+    // ====================================
+    // LOAD REVIEWS
+    // ====================================
+
     const loadReviews = async () => {
-
         try {
-
             setLoading(true);
             setError("");
 
-            const token =
-                await getToken();
+            const token = await getToken();
 
-            const response =
-                await adminReviewsApi.getAll(
-                    token
-                );
+            const response = await adminReviewsApi.getAll(token);
 
-            setReviews(
-                response.reviews || []
-            );
+            console.log("Admin reviews API response:", response);
+
+            setReviews(response.reviews || []);
 
         } catch (error) {
-
             console.error(
                 "Unable to load admin reviews:",
                 error
             );
 
             setError(
+                error.response?.data?.message ||
                 error.message ||
                 "Unable to load reviews."
             );
 
         } finally {
-
             setLoading(false);
-
         }
     };
+
+
+    // ====================================
+    // FORM CHANGE HANDLER
+    // ====================================
 
     const handleChange = (event) => {
         const {
@@ -106,6 +109,28 @@ const AdminReviews = () => {
     };
 
 
+    // ====================================
+    // RESET FORM
+    // ====================================
+
+    const resetForm = () => {
+        setEditingReviewId(null);
+
+        setForm({
+            customerName: "",
+            rating: 5,
+            reviewText: "",
+            customerImageUrl: "",
+            displayOrder: 0,
+            isPublished: false
+        });
+    };
+
+
+    // ====================================
+    // CREATE / UPDATE REVIEW
+    // ====================================
+
     const handleCreateReview = async (event) => {
         event.preventDefault();
 
@@ -113,65 +138,155 @@ const AdminReviews = () => {
             setSaving(true);
             setError("");
 
-            const token =
-                await getToken();
+            const token = await getToken();
 
-            const response =
-                await adminReviewsApi.create(
+            const reviewData = {
+                customerName: form.customerName.trim(),
+                rating: Number(form.rating),
+                reviewText: form.reviewText.trim(),
+                customerImageUrl: form.customerImageUrl.trim(),
+                displayOrder: Number(form.displayOrder),
+                isPublished: form.isPublished
+            };
+
+            if (editingReviewId) {
+
+                // UPDATE EXISTING REVIEW
+
+                const response = await adminReviewsApi.update(
                     token,
-                    {
-                        customerName:
-                            form.customerName,
-                        rating:
-                            Number(form.rating),
-                        reviewText:
-                            form.reviewText,
-                        customerImageUrl:
-                            form.customerImageUrl,
-                        displayOrder:
-                            Number(form.displayOrder),
-                        isPublished:
-                            form.isPublished
-                    }
+                    editingReviewId,
+                    reviewData
                 );
 
-            setReviews((current) => [
-                ...current,
-                response.review
-            ]);
+                setReviews((current) =>
+                    current.map((review) =>
+                        review.id === editingReviewId
+                            ? response.review
+                            : review
+                    )
+                );
 
-            setForm({
-                customerName: "",
-                rating: 5,
-                reviewText: "",
-                customerImageUrl: "",
-                displayOrder: 0,
-                isPublished: false
-            });
+            } else {
+
+                // CREATE NEW REVIEW
+
+                const response = await adminReviewsApi.create(
+                    token,
+                    reviewData
+                );
+
+                setReviews((current) => [
+                    ...current,
+                    response.review
+                ]);
+            }
+
+            resetForm();
 
         } catch (error) {
-
             console.error(
-                "Unable to create review:",
+                "Unable to save review:",
                 error
             );
 
             setError(
+                error.response?.data?.message ||
                 error.message ||
-                "Unable to create review."
+                "Unable to save review."
             );
 
         } finally {
-
             setSaving(false);
-
         }
     };
+
+
+    // ====================================
+    // EDIT REVIEW
+    // ====================================
+
+    const handleEditReview = (review) => {
+        setEditingReviewId(review.id);
+
+        setForm({
+            customerName: review.customer_name || "",
+            rating: review.rating || 5,
+            reviewText: review.review_text || "",
+            customerImageUrl: review.customer_image_url || "",
+            displayOrder: review.display_order ?? 0,
+            isPublished: review.is_published ?? false
+        });
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
+
+    // ====================================
+    // DELETE REVIEW
+    // ====================================
+
+    const handleDeleteReview = async (review) => {
+        const confirmed = window.confirm(
+            `Are you sure you want to permanently delete the review from ${review.customer_name}?`
+        );
+
+        if (!confirmed) return;
+
+        try {
+            setDeletingReviewId(review.id);
+            setError("");
+
+            const token = await getToken();
+
+            await adminReviewsApi.delete(
+                token,
+                review.id
+            );
+
+            setReviews((current) =>
+                current.filter(
+                    (item) => item.id !== review.id
+                )
+            );
+
+            if (editingReviewId === review.id) {
+                resetForm();
+            }
+
+        } catch (error) {
+            console.error(
+                "Unable to delete review:",
+                error
+            );
+
+            setError(
+                error.response?.data?.message ||
+                error.message ||
+                "Unable to delete review."
+            );
+
+        } finally {
+            setDeletingReviewId(null);
+        }
+    };
+
+
+    // ====================================
+    // INITIAL LOAD
+    // ====================================
 
     useEffect(() => {
         loadReviews();
     }, []);
 
+
+    // ====================================
+    // LOADING STATE
+    // ====================================
 
     if (loading) {
         return (
@@ -182,8 +297,14 @@ const AdminReviews = () => {
     }
 
 
+    // ====================================
+    // PAGE
+    // ====================================
+
     return (
         <main className="admin-reviews">
+
+            {/* PAGE HEADER */}
 
             <header className="admin-reviews-header">
 
@@ -206,9 +327,7 @@ const AdminReviews = () => {
 
                 <button
                     type="button"
-                    onClick={() =>
-                        navigate("/admin")
-                    }
+                    onClick={() => navigate("/admin")}
                 >
                     ← Dashboard
                 </button>
@@ -216,11 +335,16 @@ const AdminReviews = () => {
             </header>
 
 
+            {/* ERROR MESSAGE */}
+
             {error && (
                 <div className="admin-reviews-error">
                     {error}
                 </div>
             )}
+
+
+            {/* ADD / EDIT REVIEW FORM */}
 
             <form
                 className="admin-review-form"
@@ -228,19 +352,29 @@ const AdminReviews = () => {
             >
 
                 <div className="admin-review-form-header">
+
                     <div>
+
                         <p className="admin-reviews-eyebrow">
-                            New Testimonial
+                            {editingReviewId
+                                ? "Edit Testimonial"
+                                : "New Testimonial"}
                         </p>
 
                         <h2>
-                            Add Client Review
+                            {editingReviewId
+                                ? "Edit Client Review"
+                                : "Add Client Review"}
                         </h2>
+
                     </div>
+
                 </div>
 
 
                 <div className="admin-review-form-grid">
+
+                    {/* CUSTOMER NAME */}
 
                     <label>
                         Client Name
@@ -254,6 +388,8 @@ const AdminReviews = () => {
                         />
                     </label>
 
+
+                    {/* RATING */}
 
                     <label>
                         Rating
@@ -273,6 +409,8 @@ const AdminReviews = () => {
                     </label>
 
 
+                    {/* REVIEW TEXT */}
+
                     <label className="admin-review-form-full">
                         Review
 
@@ -286,6 +424,8 @@ const AdminReviews = () => {
                     </label>
 
 
+                    {/* CUSTOMER IMAGE */}
+
                     <label>
                         Client Image URL
 
@@ -298,6 +438,8 @@ const AdminReviews = () => {
                         />
                     </label>
 
+
+                    {/* DISPLAY ORDER */}
 
                     <label>
                         Display Order
@@ -314,6 +456,8 @@ const AdminReviews = () => {
                 </div>
 
 
+                {/* PUBLISH OPTION */}
+
                 <label className="admin-review-publish">
 
                     <input
@@ -328,20 +472,43 @@ const AdminReviews = () => {
                 </label>
 
 
-                <button
-                    type="submit"
-                    disabled={saving}
-                >
-                    {saving
-                        ? "Saving..."
-                        : "Add Review"}
-                </button>
+                {/* FORM BUTTONS */}
+
+                <div className="admin-review-form-actions">
+
+                    <button
+                        type="submit"
+                        disabled={saving}
+                    >
+                        {saving
+                            ? "Saving..."
+                            : editingReviewId
+                                ? "Update Review"
+                                : "Add Review"}
+                    </button>
+
+                    {editingReviewId && (
+                        <button
+                            type="button"
+                            onClick={resetForm}
+                            disabled={saving}
+                            className="admin-review-cancel"
+                        >
+                            Cancel Editing
+                        </button>
+                    )}
+
+                </div>
 
             </form>
+
+
+            {/* REVIEW LIST */}
 
             {reviews.length === 0 ? (
 
                 <div className="admin-reviews-empty">
+
                     <h2>
                         No reviews yet
                     </h2>
@@ -351,6 +518,7 @@ const AdminReviews = () => {
                         review to display it
                         on the website.
                     </p>
+
                 </div>
 
             ) : (
@@ -363,6 +531,8 @@ const AdminReviews = () => {
                             key={review.id}
                             className="admin-review-card"
                         >
+
+                            {/* REVIEW HEADER */}
 
                             <div className="admin-review-card-top">
 
@@ -395,18 +565,48 @@ const AdminReviews = () => {
                             </div>
 
 
+                            {/* REVIEW CONTENT */}
+
                             <p className="admin-review-text">
                                 “{review.review_text}”
                             </p>
 
 
+                            {/* REVIEW META */}
+
                             <div className="admin-review-meta">
 
                                 <span>
-                                    Display order:
-                                    {" "}
+                                    Display order:{" "}
                                     {review.display_order}
                                 </span>
+
+                            </div>
+
+
+                            {/* EDIT / DELETE ACTIONS */}
+
+                            <div className="admin-review-actions">
+
+                                <button
+                                    type="button"
+                                    onClick={() => handleEditReview(review)}
+                                >
+                                    Edit Review
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="admin-review-delete"
+                                    onClick={() => handleDeleteReview(review)}
+                                    disabled={
+                                        deletingReviewId === review.id
+                                    }
+                                >
+                                    {deletingReviewId === review.id
+                                        ? "Deleting..."
+                                        : "Delete Review"}
+                                </button>
 
                             </div>
 
@@ -421,6 +621,5 @@ const AdminReviews = () => {
         </main>
     );
 };
-
 
 export default AdminReviews;

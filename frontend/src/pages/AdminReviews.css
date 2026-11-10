@@ -283,3 +283,123 @@
         grid-column: auto;
     }
 }
+
+.admin-review-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #eadbd8;
+}
+
+.admin-review-actions button {
+    padding: 11px 22px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.admin-review-actions button:first-child {
+    background: #76534d;
+    color: white;
+}
+
+.admin-review-actions .admin-review-delete {
+    background: #f8e8e5;
+    color: #a43f36;
+}
+
+.admin-review-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.admin-review-cancel {
+    padding: 11px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #eee5e1;
+    color: #654b45;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.admin-review-actions button:disabled,
+.admin-review-form-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .admin-review-actions {
+        flex-direction: column;
+    }
+
+    .admin-review-actions button {
+        width: 100%;
+    }
+}
+
+/* Review form action buttons */
+
+.admin-review-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.admin-review-form-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* Add / Update button */
+
+.admin-review-form-actions button[type="submit"] {
+    background: #76534d;
+    color: #ffffff;
+}
+
+.admin-review-form-actions button[type="submit"]:hover {
+    background: #593b36;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(91, 55, 48, 0.18);
+}
+
+/* Cancel button */
+
+.admin-review-form-actions .admin-review-cancel {
+    background: #f0e5e1;
+    color: #76534d;
+}
+
+.admin-review-form-actions .admin-review-cancel:hover {
+    background: #e7d5cf;
+}
+
+/* Disabled state */
+
+.admin-review-form-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
